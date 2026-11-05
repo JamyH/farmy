@@ -7,13 +7,12 @@ Für den nächsten Claude, der hier weiter codet. Erst diese Datei, dann `CLAUDE
 League-of-Legends-Begleiter (Electron, Windows): Overlay im Spiel (OCR des HUD, Live-API Port 2999) und Hauptfenster
 mit Wiki/Champions, Build & Runen, Live-Spiel, Verlauf, Fortschritt, Notizen, Spielersuche. Daten aus dem lokalen
 League-Client (LCU, `src/client/lcu.js`), kein Riot-API-Key. Repo: `D:\lol-overlay`, Remote `github.com/JamyH/farmy`,
-Branch `main`, Version 1.9.0. Website: `docs/` (GitHub Pages, jamyh.github.io/farmy).
+Branch `main`, Version 2.0.0 (veröffentlicht 2026-11-05). Website: `docs/` (GitHub Pages, jamyh.github.io/farmy).
 
 ## Arbeitsweise mit Jamy
 
 - Antworten auf Deutsch, kurz und klar. Sichtbare Texte in der App über `t('…')`, englisch in `renderer/i18n.js`.
-- **Committen/pushen nur, wenn Jamy darum bittet.** Gerade ist sehr viel *uncommittet* (siehe unten) – nichts
-  verwerfen, kein `git checkout -- .`/`reset`.
+- **Committen/pushen nur, wenn Jamy darum bittet.**
 - **Nach jeder Code-Änderung Farmy selbst neu starten**, nie Jamy darum bitten:
   - Läuft als Dev: `D:\lol-overlay\node_modules\electron\dist\electron.exe . --data-dir=D:\lol-overlay\userdata`
     (Arbeitsordner `D:\lol-overlay`).
@@ -52,12 +51,12 @@ Branch `main`, Version 1.9.0. Website: `docs/` (GitHub Pages, jamyh.github.io/fa
 - Rose-Begleiter (`src/main/rose.js`): nur FarmyDevBuild, steuert ein installiertes Rose nur an, injiziert nichts.
 - Release-Build: `npm run dist` (Fuses, keine Verschleierung); kein `eval` im Fenster-Code.
 
-## Aktueller Stand (alles uncommittet seit Commit 6c0ebe6)
+## Aktueller Stand (v2.0.0, alles auf `main`)
 
-Großer Umbau + neue Funktionen, siehe `CHANGELOG.md` „Unveröffentlicht“. Kurz:
+Großer Umbau + neue Funktionen, siehe `CHANGELOG.md` „2.0.0“. Kurz:
 - `main.js` aufgeteilt nach `src/main/`, `src/app|client|game|screen|data/`; Fenster-Code nach
   `renderer/main-window/` und `renderer/overlay/` (alte `renderer/stats.*`, `renderer/overlay.js`, `src/*.js` gelöscht
-  bzw. verschoben – in git noch als „deleted“ + „untracked“ sichtbar).
+  bzw. verschoben).
 - Neuer Look, eigene Stile (`src/main/themes.js`, `renderer/theme.js`, `renderer/themes/`).
 - Champions-Wiki, Tierliste, Gegner-Panel, „Dein Team“, Premade-/Tilt-Tags im Live-Spiel, Arena im Fortschritt,
   Spiel-Archiv (`userdata/archive.jsonl`).
@@ -74,10 +73,10 @@ Großer Umbau + neue Funktionen, siehe `CHANGELOG.md` „Unveröffentlicht“. K
 
 ## Offene Punkte (Vorschlag für die Reihenfolge)
 
-1. **Abo-Rückbau**: erledigt 2026-11-05 (siehe oben), nichts committet.
+1. **Abo-Rückbau**: erledigt 2026-11-05 (siehe oben), in 2.0.0.
 2. **lolalytics-Runen**: geprüft 2026-11-05, kein Fehler. Alle 118 Build-Einträge im Cache und die Ahri-Seite haben 9 IDs.
    `runes: 0` vom 31.10. kam vermutlich vom Test ohne geladene Data-Dragon-Daten: dann gibt `parse()` `runes: null`.
-3. **Arena 3x6**: behoben 2026-11-05 (Branch `fix/arena-live-zuordnung`, uncommittet). Rang/Tags gehen über die Riot-ID
+3. **Arena 3x6**: behoben 2026-11-05, in 2.0.0. Rang/Tags gehen über die Riot-ID
    (`live.playerKeys()`), Champion nur als Ersatz, wenn er einmalig ist. Mit gestellten Daten getestet, nicht im echten Spiel.
 4. **Rose** ist installiert (`D:\Rose`, Daten/Mods in `%LOCALAPPDATA%\Rose`). Pfaderkennung liest jetzt den
    Apps-Eintrag (Registry Uninstall → DisplayIcon). Start/Stop aus Farmy noch testen (Rose läuft mit
