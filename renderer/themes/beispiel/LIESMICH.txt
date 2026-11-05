@@ -1,0 +1,33 @@
+EIGENE STILE FÜR FARMY
+======================
+
+Jeder Ordner hier mit einer theme.json ist ein Stil und steht in Farmy im Menü unter „Stil“.
+Am einfachsten: diesen Ordner kopieren, umbenennen, theme.json anpassen. Speichern reicht,
+Farmy lädt den aktiven Stil bei jeder Änderung neu. Neue Ordner: Menü → Stil → „Stile neu einlesen“.
+
+theme.json
+  name           Name im Menü
+  colors         Farben für Hauptfenster und Overlay, z. B. "accent": "#ff4f8b"
+                 (Namen der Variablen stehen in main.css und overlay.css)
+  overlayColors  nur fürs Overlay, z. B. "panel-rgb": "24, 14, 26"
+  font           Schrift-Datei in diesem Ordner, z. B. "meineschrift.woff2" (auch .ttf/.otf),
+                 oder der Name einer auf dem PC installierten Schrift, z. B. "Segoe UI".
+                 Farmy lädt keine Schriften aus dem Internet. Achte bei Schrift-Dateien auf die Lizenz.
+  background     Bild in diesem Ordner als Hintergrund des Hauptfensters, z. B. "hintergrund.jpg"
+  backgroundDim  wie stark das Bild abgedunkelt wird, 0 (gar nicht) bis 1 (schwarz)
+
+main.css / overlay.css (optional)
+  Eigenes CSS, wird zuletzt geladen. Bilder und Schriften aus diesem Ordner gehen relativ,
+  z. B. url("muster.png").
+
+
+CUSTOM STYLES FOR FARMY
+=======================
+
+Every folder here with a theme.json is a style and shows up in Farmy's menu under "Style".
+Easiest: copy this folder, rename it, edit theme.json. Saving is enough, Farmy reloads the
+active style on every change. New folders: menu → Style → "Reload styles".
+
+theme.json: name, colors, overlayColors,
+font (font file in this folder or an installed font's name; nothing is loaded from the web), background (image file in this folder), backgroundDim (0–1).
+main.css / overlay.css: optional own CSS, loaded last.

@@ -6,15 +6,15 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder --win nsis portable --publish never"
+    "dist": "node tools/notices.js && electron-builder --win nsis portable --publish never"
   },
   "devDependencies": {
-    "electron": "^33.2.1",
-    "electron-builder": "^25.1.8"
+    "electron": "44.10.0",
+    "electron-builder": "26.17.0"
   },
   "dependencies": {
     "electron-updater": "^6.8.11",
-    "koffi": "^3.3.4",
+    "koffi": "^3.3.6",
     "tesseract.js": "^5.1.1"
   },
   "license": "MIT",
@@ -34,6 +34,9 @@
       "renderer/**",
       "assets/icon.ico",
       "assets/icon.png",
+      "assets/tessdata/**",
+      "legal/THIRD_PARTY_NOTICES.txt",
+      "LICENSE",
       "package.json",
       "node_modules/**",
       "!node_modules/tesseract.js-core/*.wasm.js"
@@ -42,7 +45,8 @@
       "node_modules/tesseract.js/**",
       "node_modules/tesseract.js-core/**",
       "node_modules/koffi/**",
-      "node_modules/@koromix/**"
+      "node_modules/@koromix/**",
+      "legal/**"
     ],
     "npmRebuild": false,
     "win": {
@@ -76,6 +80,14 @@
         "owner": "JamyH",
         "repo": "farmy"
       }
-    ]
+    ],
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true,
+      "enableCookieEncryption": true
+    }
   }
 }

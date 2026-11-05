@@ -7,3 +7,6 @@ debug/
 dist/
 # Datenordner bei Start mit --data-dir=userdata (Einstellungen, Caches)
 userdata/
+
+# Design-Referenzen (Screenshots fremder Apps, nicht ins Repo)
+design/referenzen/

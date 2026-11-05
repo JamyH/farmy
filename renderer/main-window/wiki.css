@@ -1,0 +1,83 @@
+/* Reiter „Champions“ (wiki.js): wie ein Mailprogramm. Die Seite selbst scrollt nicht (body.fill-page, app.js), Liste
+   links und Champion rechts füllen das Fenster und scrollen jede für sich; so ist nichts abgeschnitten */
+body.fill-page .content { overflow: hidden; }
+body.fill-page footer { display: none; }
+body.fill-page main { display: flex; flex-direction: column; min-height: 0; padding-bottom: 0; }
+#wiki:not([hidden]) { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.wiki { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 16px; }
+/* links Suche, Rollen und Liste; nur die Liste scrollt */
+.wiki-side { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
+.wiki-side input { width: 100%; box-sizing: border-box; }
+.wiki-side .seg { margin: 0; }
+.wiki-side .seg button { flex: 1; padding: 0 6px; justify-content: center; }
+.wiki-list, .wiki-detail { min-height: 0; overflow-y: auto; padding-bottom: 20px; }
+.wiki-list { flex: 1; padding-right: 8px; }
+.wiki-list h3 { margin: 14px 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.wiki-list h3:first-child { margin-top: 0; }
+.wiki-list h3 small { margin-left: 4px; font-weight: 400; opacity: 0.7; }
+.wiki-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 6px; }
+.wiki-tile {
+  height: auto; padding: 6px 2px 5px; flex-direction: column; gap: 4px;
+  border: 1px solid transparent; border-radius: var(--r); font-weight: 500; font-size: 11px; color: var(--text-2);
+}
+.wiki-tile:hover { background: var(--tile-hi); color: var(--text); }
+.wiki-tile.on { border-color: var(--accent); background: var(--accent-soft); color: var(--text); }
+.wiki-tile.enemy img { outline: 2px solid var(--loss); outline-offset: 1px; }
+.wiki-tile img { width: 44px; height: 44px; border-radius: var(--r); }
+.wiki-tile span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.wiki-detail { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding-right: 4px; }
+.wiki-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.wiki-head img { width: 52px; height: 52px; border-radius: var(--r); }
+.wiki-head > div:not(.seg) { flex: 1; min-width: 160px; }
+.wiki-head h2 { margin: 0; font: 700 28px/1.1 var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; }
+.wiki-head p { margin: 2px 0 0; color: var(--muted); }
+.wiki-lanes { margin: 0; }
+/* Lanes, die der Champion üblicherweise spielt, hervorgehoben */
+.wiki-lanes button.main { color: var(--text); font-weight: 700; }
+
+/* Build kompakt: Runen links, Summoner/Start/Skills rechts, darunter Items und Skill-Reihenfolge, nur Icons */
+.wiki-detail .card { padding: 14px 16px; }
+.wiki-build { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 10px; }
+#wikiBuild h3 { margin: 0 0 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.wiki-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.wiki-row .sep { color: var(--muted); }
+.wiki-row img, .wiki-item img { width: 32px; height: 32px; border-radius: var(--r); }
+.wiki-items { margin-bottom: 10px; }
+.wiki-items img { width: 38px; height: 38px; }
+.wiki-item { position: relative; display: inline-flex; }
+.wiki-item i { position: absolute; right: -4px; bottom: -4px; padding: 0 3px; border-radius: var(--r); background: var(--bg); font-size: 10px; font-style: normal; }
+.wiki-runes { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.wiki-runes img { width: 26px; height: 26px; }
+.wiki-runes img.keystone { width: 36px; height: 36px; }
+.wiki-runes b { margin-right: 6px; font-size: 13px; }
+.wiki-runes .sep { width: 1px; height: 22px; margin: 0 4px; background: var(--line-2); }
+.wiki-prio { margin: 4px 0 0; font: 700 22px var(--font-display); letter-spacing: 0.04em; color: var(--gold); }
+.wiki-skills { display: grid; grid-template-columns: repeat(18, minmax(18px, 1fr)); gap: 2px; margin-bottom: 4px; }
+.wiki-skills span { display: flex; flex-direction: column; align-items: center; padding: 1px 0; border-radius: var(--r); background: var(--tile); font-weight: 700; font-size: 12px; }
+.wiki-skills small { font-weight: 400; font-size: 9px; color: var(--muted); }
+.wiki-skills .k-r { background: var(--accent-soft); color: var(--accent); }
+#wikiBuild .hint, .wiki-abilities .hint { margin: 6px 0 0; font-size: 11px; }
+
+/* Fähigkeiten als Reiter: Icon-Leiste, darunter die gewählte */
+.ab-tabs { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.ab-tabs .hint { margin: 0 0 0 auto; }
+.ab-tabs button { position: relative; width: 48px; height: 48px; padding: 0; justify-content: center; border: 2px solid transparent; border-radius: var(--r); }
+.ab-tabs button img { width: 40px; height: 40px; border-radius: var(--r); opacity: 0.55; }
+.ab-tabs button:hover img { opacity: 0.85; }
+.ab-tabs button[aria-selected="true"] { border-color: var(--accent); }
+.ab-tabs button[aria-selected="true"] img { opacity: 1; }
+.ab-tabs button b { position: absolute; right: -4px; bottom: -6px; padding: 0 4px; border-radius: var(--r); background: var(--bg); font-size: 10px; color: var(--text); }
+.ab-head b { font: 700 17px var(--font-display); text-transform: uppercase; letter-spacing: 0.05em; }
+.ab-desc { margin: 4px 0 8px; color: var(--text-2); }
+.ab-cd { margin: 0 0 4px; font-size: 12px; color: var(--blue); }
+#wikiAbility h4 { margin: 8px 0 2px; font-size: 12px; color: var(--text-2); }
+/* lange Werte („40 / 60 / 80 + 30% AP“) brechen um, statt über die Karte hinauszuragen */
+.ab-rows { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 12px; }
+.ab-rows td { padding: 2px 12px 2px 0; vertical-align: top; text-align: left; white-space: normal; overflow-wrap: anywhere; }
+.ab-rows td:first-child { width: 42%; color: var(--muted); }
+
+/* schmales Fenster: untereinander, die Liste oben mit fester Höhe */
+@media (max-width: 980px) {
+  .wiki { grid-template-columns: 1fr; grid-template-rows: 330px minmax(0, 1fr); }
+}

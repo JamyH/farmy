@@ -2,7 +2,7 @@
 const { app } = require('electron');
 const fs = require('fs');
 const path = require('path');
-const ocr = require('../src/ocr');
+const ocr = require('../src/screen/ocr');
 
 const SLOTS = { d: { x: 1758, y: 1322, width: 40, height: 40 }, f: { x: 1803, y: 1322, width: 40, height: 40 } };
 

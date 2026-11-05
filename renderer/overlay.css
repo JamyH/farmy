@@ -1,36 +1,39 @@
-/* Redesign Richtung B „Graphit flach“: dunkles Graphit, flache Kacheln statt Gold-Rahmen, Türkis für „bereit“ */
+/* Look „HUD“ wie im Hauptfenster: fast schwarz, Haarlinien in Gold, eckig, schmale Versalien für Kopf und Labels */
 :root {
   /* aus den Overlay-Einstellungen (⚙): UI-Größe, Hintergrund-Deckkraft, Deckkraft unter der Maus */
   --ui: 1;
   --bg-a: 0.7;
   --hover-op: 0.8;
-  --panel-rgb: 22, 24, 29;
+  --panel-rgb: 10, 13, 18;
   --panel: rgba(var(--panel-rgb), var(--bg-a));
-  --tile: rgba(255, 255, 255, 0.04);
-  --tile-hi: rgba(255, 255, 255, 0.06);
-  --line: rgba(255, 255, 255, 0.06);
-  --line-2: rgba(255, 255, 255, 0.1);
-  --track: rgba(255, 255, 255, 0.08);
-  --text: #e8eaed;
-  --text-2: #c4c8cc;
-  --muted: #9aa0a6;
-  --accent: #5eead4;
-  --accent-ink: #0b1412;
-  --bad: #ff8a7a;
+  --tile: rgba(200, 170, 110, 0.05);
+  --tile-hi: rgba(200, 170, 110, 0.1);
+  --line: rgba(200, 170, 110, 0.18);
+  --line-2: rgba(200, 170, 110, 0.3);
+  --track: rgba(200, 170, 110, 0.12);
+  --text: #ece6d6;
+  --text-2: #c9c2b0;
+  --muted: #8a8577;
+  --accent: #c8aa6e;
+  --accent-ink: #0a0d12;
+  --bad: #ff5a5a;
   --bad-ink: #2a0a06;
-  --gold: #f2c14e;
+  --gold: #e2c27a;
   --gold-ink: #1f1604;
-  --blue: #8ab4f8;
-  --r-panel: 10px;
-  --r-tile: 8px;
-  --r-pill: 8px;
+  --blue: #4fa3ff;
+  --r-panel: 2px;
+  --r-tile: 2px;
+  --r-pill: 2px;
+  --r: 2px;
+  --font: Barlow, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Barlow Condensed", Barlow, "Segoe UI", sans-serif;
 }
 
 html, body {
   margin: 0;
   background: transparent;
   overflow: hidden;
-  font: 13px/1.35 Inter, "Segoe UI", system-ui, sans-serif;
+  font: 13.5px/1.35 var(--font);
   color: var(--text);
   font-variant-numeric: tabular-nums;
   user-select: none;
@@ -71,7 +74,7 @@ body:not(.click-through) .panel { cursor: move; }
   position: absolute;
   width: 250px;
   box-sizing: border-box;
-  border-radius: 12px;
+  border-radius: var(--r);
   background: rgba(22, 24, 29, 0.96);
   border: 1px solid var(--line-2);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
@@ -104,7 +107,7 @@ body:not(.click-through) .panel { cursor: move; }
   width: 24px;
   height: 24px;
   cursor: pointer;
-  border-radius: 7px;
+  border-radius: var(--r);
   background: var(--tile-hi);
   color: var(--text-2);
   font-size: 12px;
@@ -141,9 +144,9 @@ body:not(.click-through) .panel { cursor: move; }
 .slider output { color: var(--accent); font-variant-numeric: tabular-nums; }
 .slider input { width: 100%; margin: 6px 0 0; accent-color: var(--accent); cursor: pointer; }
 .color { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 0; cursor: pointer; }
-.color input { flex: none; width: 38px; height: 22px; padding: 0; border: 1px solid var(--line-2); border-radius: 6px; background: none; cursor: pointer; }
+.color input { flex: none; width: 38px; height: 22px; padding: 0; border: 1px solid var(--line-2); border-radius: var(--r); background: none; cursor: pointer; }
 .color input::-webkit-color-swatch-wrapper { padding: 2px; }
-.color input::-webkit-color-swatch { border: none; border-radius: 4px; }
+.color input::-webkit-color-swatch { border: none; border-radius: var(--r); }
 .reset { width: 100%; margin-top: 8px; padding: 6px; border: 1px solid var(--line-2); border-radius: var(--r-pill); background: var(--tile-hi); color: var(--text-2); font: inherit; font-size: 12px; cursor: pointer; }
 .reset:hover { background: var(--line-2); color: var(--text); }
 
@@ -155,7 +158,7 @@ body:not(.click-through) .panel { cursor: move; }
 }
 #champ, .lvl { font-weight: 700; font-size: 14px; }
 .lvl:not(:empty)::before { content: ' · Lvl '; white-space: pre; }
-#time { padding: 3px 7px; border-radius: 6px; background: var(--tile-hi); font-weight: 600; font-size: 12px; color: var(--text-2); }
+#time { padding: 3px 7px; border-radius: var(--r); background: var(--tile-hi); font-weight: 600; font-size: 12px; color: var(--text-2); }
 .muted, label, small { color: var(--muted); }
 label { display: block; font-size: 10px; }
 .row label { font-size: 12px; }
@@ -175,8 +178,8 @@ small { margin-left: 4px; font-size: 11px; }
 .mana .row { margin-top: 0; }
 .mana .row label { color: var(--text-2); }
 .mana.low #manaVal { color: var(--bad); }
-.manabar { position: relative; height: 6px; margin-top: 6px; border-radius: 3px; background: var(--track); overflow: hidden; }
-.manabar div { height: 100%; width: 0; border-radius: 3px; background: var(--blue); transition: width 0.3s; }
+.manabar { position: relative; height: 6px; margin-top: 6px; border-radius: var(--r); background: var(--track); overflow: hidden; }
+.manabar div { height: 100%; width: 0; border-radius: var(--r); background: var(--blue); transition: width 0.3s; }
 .mana.low .manabar div { background: var(--bad); }
 .manabar i { position: absolute; top: -3px; bottom: -3px; width: 2px; border-radius: 1px; background: var(--text); }
 
@@ -219,8 +222,8 @@ small { margin-left: 4px; font-size: 11px; }
 .build .row label { color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; margin-right: 8px; }
 .build .row b { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .build.ready .row b { color: var(--gold); }
-.buildbar { height: 6px; margin-top: 6px; border-radius: 3px; background: var(--track); overflow: hidden; }
-.buildbar div { height: 100%; width: 0; border-radius: 3px; background: var(--gold); transition: width 0.3s; }
+.buildbar { height: 6px; margin-top: 6px; border-radius: var(--r); background: var(--track); overflow: hidden; }
+.buildbar div { height: 100%; width: 0; border-radius: var(--r); background: var(--gold); transition: width 0.3s; }
 
 .spells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 14px; }
 .spells:empty { display: none; }
@@ -230,7 +233,7 @@ small { margin-left: 4px; font-size: 11px; }
 .spell b { font-size: 14px; font-weight: 700; color: var(--text-2); font-variant-numeric: tabular-nums; }
 .spell b.good { color: var(--accent); }
 .spell.item { padding-left: 6px; }
-.spell.item img { width: 28px; height: 28px; flex: none; border-radius: 6px; }
+.spell.item img { width: 28px; height: 28px; flex: none; border-radius: var(--r); }
 .spell.item.cd img { filter: grayscale(1) brightness(0.6); }
 .spell.item > div { min-width: 0; }
 
@@ -239,8 +242,8 @@ small { margin-left: 4px; font-size: 11px; }
 .xp .row label { color: var(--text-2); }
 .xp small { display: block; margin: 4px 0 0; }
 .xp small[hidden] { display: none; } /* ARAM: nur Prozent */
-.xpbar { height: 6px; margin-top: 6px; border-radius: 3px; background: var(--track); overflow: hidden; }
-.xpbar div { height: 100%; width: 0; border-radius: 3px; background: var(--blue); transition: width 0.4s; }
+.xpbar { height: 6px; margin-top: 6px; border-radius: var(--r); background: var(--track); overflow: hidden; }
+.xpbar div { height: 100%; width: 0; border-radius: var(--r); background: var(--blue); transition: width 0.4s; }
 
 .lane { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); }
 .lane .row:first-child { margin-top: 0; }
@@ -255,18 +258,18 @@ small { margin-left: 4px; font-size: 11px; }
 .compact .panel { width: 212px; padding: 10px; font-size: 12px; line-height: 1.3; }
 .compact .head { padding-bottom: 0; border-bottom: none; }
 .compact #champ { font-size: 13px; }
-.compact .lvl:not(:empty) { margin-left: 6px; padding: 1px 5px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); font-size: 10px; font-weight: 600; color: var(--text-2); }
+.compact .lvl:not(:empty) { margin-left: 6px; padding: 1px 5px; border-radius: var(--r); background: rgba(255, 255, 255, 0.08); font-size: 10px; font-weight: 600; color: var(--text-2); }
 .compact .lvl::before { content: none; }
 .compact #time { padding: 0; background: none; }
 .compact .row label { font-size: 11px; }
 
 .compact .alerts { flex-direction: row; flex-wrap: wrap-reverse; gap: 4px; margin-bottom: 6px; }
-.compact .alert { flex: 1 1 auto; height: 28px; padding: 0 8px; gap: 6px; border-radius: 7px; letter-spacing: 0.05em; }
+.compact .alert { flex: 1 1 auto; height: 28px; padding: 0 8px; gap: 6px; border-radius: var(--r); letter-spacing: 0.05em; }
 .compact .alert .prio { display: none; }
 
 /* KDA, CS, Gold: Zahl oben, Name und Zusatz darunter; Vision fällt weg. Breite nach Inhalt, damit 12/10/15 passt */
 .compact .grid { display: flex; gap: 4px; margin-top: 8px; }
-.compact .grid > div { flex: 1 1 0; min-width: min-content; padding: 6px; border-radius: 7px; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 4px; }
+.compact .grid > div { flex: 1 1 0; min-width: min-content; padding: 6px; border-radius: var(--r); display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 4px; }
 .compact .grid > div:nth-child(2) { order: -1; }
 .compact .grid > div:nth-child(4) { display: none; }
 .compact .grid b { order: -1; flex-basis: 100%; font-size: 15px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -308,12 +311,12 @@ small { margin-left: 4px; font-size: 11px; }
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.sb-team { padding: 4px 10px; border-radius: 9px; transform: translate(-50%, -100%) scale(var(--ui)); transform-origin: 50% 100%; font-size: 14px; }
+.sb-team { padding: 4px 10px; border-radius: var(--r); transform: translate(-50%, -100%) scale(var(--ui)); transform-origin: 50% 100%; font-size: 14px; }
 .sb-team label { display: inline; margin-right: 6px; color: var(--muted); }
 .sb-row {
   /* rechtsbündig an der Ward-Slot-Kante: wächst nur nach links, nie über die Mittellinie */
   padding: 2px 6px;
-  border-radius: 6px;
+  border-radius: var(--r);
   transform: translate(-100%, -100%) scale(var(--ui));
   transform-origin: 100% 100%;
   display: flex;
@@ -327,12 +330,12 @@ small { margin-left: 4px; font-size: 11px; }
 
 /* Mayhem: Tier-Badges über Augment- und Werte-Schmiede-Karten */
 /* FarmyDevBuild: DEV-Plakette und Lese-Bereiche */
-.dev-badge { margin-left: 6px; padding: 1px 5px; border-radius: 4px; background: #7c3aed; color: #fff;
-  font: 700 9px Inter, sans-serif; letter-spacing: .5px; vertical-align: 2px; }
+.dev-badge { margin-left: 6px; padding: 1px 5px; border-radius: var(--r); background: #7c3aed; color: #fff;
+  font: 700 9px var(--font); letter-spacing: .5px; vertical-align: 2px; }
 .dbg { position: fixed; inset: 0; pointer-events: none; }
 .dbg > div { position: fixed; outline: 1px solid #b06cff; background: rgba(176, 108, 255, .08); }
 .dbg span { position: absolute; left: 0; bottom: 100%; padding: 0 3px; background: #7c3aed; color: #fff;
-  font: 600 10px Inter, sans-serif; white-space: nowrap; }
+  font: 600 10px var(--font); white-space: nowrap; }
 .dbg .below span { bottom: auto; top: 100%; }
 
 /* Jungle-Route auf der Minimap */
@@ -340,7 +343,7 @@ small { margin-left: 4px; font-size: 11px; }
 .jroute[hidden] { display: none; }
 .jroute polyline { fill: none; stroke: var(--accent); stroke-linejoin: round; stroke-dasharray: 2 1.2; }
 .jroute circle { fill: var(--accent); stroke: #0f1115; stroke-width: .3; }
-.jroute text { fill: #0f1115; font-family: Inter, sans-serif; font-weight: 700; text-anchor: middle; }
+.jroute text { fill: #0f1115; font-family: var(--font); font-weight: 700; text-anchor: middle; }
 
 .aug-badge {
   position: absolute;
@@ -351,12 +354,12 @@ small { margin-left: 4px; font-size: 11px; }
   align-items: center;
   min-width: 120px;
   padding: 6px 12px;
-  border-radius: 10px;
+  border-radius: var(--r);
   background: var(--panel);
   border: 1px solid var(--line);
   text-align: center;
 }
-.aug-badge b { font: 800 20px Inter, sans-serif; }
+.aug-badge b { font: 800 20px var(--font); }
 .aug-badge span { font-size: 12px; color: var(--text-2); }
 .aug-badge small { color: var(--muted); font-size: 11px; }
 .aug-badge.grade-S b { color: var(--gold); }
@@ -380,6 +383,20 @@ small { margin-left: 4px; font-size: 11px; }
 #goal b.bad { color: var(--bad); }
 #goal b.early { color: var(--text-2); }
 
+/* Gegner-Team: Schadensart, CC, Heilung, Item-Optionen */
+#threat[hidden] { display: none !important; }
+.threat { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.threat .row { margin-top: 0; }
+.threat .row label { color: var(--text-2); }
+.threat small { display: block; margin-top: 2px; color: var(--text-2); font-size: 11px; }
+.threat .opts { display: flex; flex-direction: column; gap: 4px 8px; margin-top: 6px; font-size: 11px; }
+.threat .opts span { display: inline-flex; align-items: center; gap: 4px; }
+.threat .opts img { width: 18px; height: 18px; border-radius: var(--r); }
+.threat .opts i { font-style: normal; color: var(--text-2); }
+.threat .opts i::before { content: "· "; }
+.compact .threat .opts span { font-size: 0; }
+.compact .threat .opts img { width: 20px; height: 20px; }
+
 /* Gank-Priorität (Jungler): Lane-Stand je Lane */
 #clear[hidden], #gank[hidden] { display: none !important; }
 .gank { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 8px; margin-top: 10px; padding-top: 10px;
@@ -391,3 +408,9 @@ small { margin-left: 4px; font-size: 11px; }
 .gank small { color: var(--text-2); font-size: 10px; }
 #csm.good { color: var(--accent); }
 #csm.bad { color: #f87171; }
+
+/* HUD-Typografie: Kopfzeile und Labels in schmalen Versalien, Zahlen in der schmalen Schrift */
+.head, .grid label, .settings h4, .settings-head, .lane, .quest-line b {
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.06em;
+}
+.grid b { font-family: var(--font-display); font-size: 18px; }

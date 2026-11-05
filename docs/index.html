@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Farmy LoL – Free LoL Overlay: Exact CS &amp; Summoner Timers</title>
-  <meta name="description" content="Free, open-source League of Legends overlay for Windows: exact CS, summoner and item cooldowns, mana for your combo, gold to your next item, plus game reviews and progress tracking from your own games. No ads, no Overwolf.">
+  <meta name="description" content="Free League of Legends overlay for Windows: exact CS, summoner and item cooldowns, mana for your combo, gold to your next item, plus game reviews and progress tracking from your own games. No ads, no Overwolf.">
   <link rel="canonical" href="https://jamyh.github.io/farmy/">
   <link rel="alternate" hreflang="en" href="https://jamyh.github.io/farmy/">
   <link rel="alternate" hreflang="de" href="https://jamyh.github.io/farmy/de/">
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Farmy LoL">
   <meta property="og:title" content="Farmy LoL – Free League of Legends Overlay">
-  <meta property="og:description" content="Exact CS, summoner timers, mana for your combo, gold to your next item – without covering your screen. Free and open source.">
+  <meta property="og:description" content="Exact CS, summoner timers, mana for your combo, gold to your next item – without covering your screen. Free to use.">
   <meta property="og:url" content="https://jamyh.github.io/farmy/">
   <meta property="og:image" content="https://jamyh.github.io/farmy/social-preview.png">
   <meta property="og:image:width" content="1280">
@@ -29,7 +29,7 @@
         "@type": "SoftwareApplication",
         "name": "Farmy",
         "alternateName": ["Farmy LoL overlay", "All You Need"],
-        "description": "Free, lightweight League of Legends overlay for Windows with exact CS, summoner spell and item cooldowns, mana for your combo, gold to your next item, auto runes and matchup win rates.",
+        "description": "Free, lightweight League of Legends overlay for Windows with exact CS, summoner spell and item cooldowns, mana for your combo, gold to your next item, auto runes and a level 1–3 matchup check.",
         "operatingSystem": "Windows 10, Windows 11",
         "applicationCategory": "GameApplication",
         "softwareVersion": "1.9.0",
@@ -48,7 +48,7 @@
           "Gold missing for the next item of your build with RECALL alert",
           "XP to the next level in melee and caster minions",
           "Item value difference to your lane opponent and team",
-          "Matchup win rates in champ select",
+          "Level 1–3 matchup check in champ select",
           "Automatic rune pages, Summoner Spells and Item Sets",
           "Game review and progress tracking from your own match history",
           "Death map, jungle analysis and training plan"
@@ -64,15 +64,13 @@
           { "@type": "Question", "name": "Does it work in fullscreen?",
             "acceptedAnswer": { "@type": "Answer", "text": "Set League to Borderless or Windowed. No overlay can sit on top of exclusive fullscreen. Resolution and HUD scale are detected automatically." } },
           { "@type": "Question", "name": "Do I need Overwolf or an account?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. Farmy is a standalone Windows app without ads, account or Overwolf. The source code is on GitHub under the MIT license." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Farmy is a standalone Windows app without ads, account or Overwolf. Everything it loads from the internet is listed in the privacy policy." } }
         ]
       }
     ]
   }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -97,9 +95,8 @@
             your full combo and the gold still missing for your next item – in one small panel next to your HUD.</p>
           <div class="cta">
             <a class="btn" href="https://github.com/JamyH/farmy/releases/latest">⬇ Download for Windows</a>
-            <a class="btn ghost" href="https://github.com/JamyH/farmy">View source</a>
           </div>
-          <div class="meta" id="dl-meta" data-rest="free · open source (MIT) · English &amp; German">Free · open source (MIT) · no account, no ads, no Overwolf · English &amp; German</div>
+          <div class="meta" id="dl-meta" data-rest="free version · English &amp; German">Free version · no ads, no Overwolf · English &amp; German</div>
         </div>
         <img class="shot" src="panel-en.png" width="540" height="618" alt="Farmy in-game panel in League of Legends showing KDA, exact CS, gold, mana with combo cost, summoner spell cooldowns and XP to the next level">
       </div>
@@ -113,7 +110,7 @@
           <a class="card" href="summoner-spell-timer/"><div class="k">D 3:12</div><h3>Summoner spell timers</h3><p>Flash and co. with countdown, read from your HUD and re-synced every 10 seconds. Item cooldowns too.</p></a>
           <a class="card" href="lol-cs-tracker/"><div class="k">142 CS</div><h3>Exact CS counter</h3><p>Read straight from your HUD instead of Riot's rounded value, plus CS/min and XP in minions.</p></a>
           <div class="card"><div class="k">+850 g</div><h3>Item value vs. your lane</h3><p>See who is ahead on items – per player on the Tab scoreboard and for the whole team.</p></div>
-          <div class="card"><div class="k">LVL 1–3</div><h3>Matchup and auto runes</h3><p>Win rate per enemy pick in champ select, who wins the early all-in, and runes set on their own page.</p></div>
+          <div class="card"><div class="k">LVL 1–3</div><h3>Matchup and auto runes</h3><p>Who wins the early all-in against each enemy pick in champ select, and Riot's recommended runes set on their own page.</p></div>
           <div class="card"><div class="k">TAB 1→6</div><h3>Jungle route</h3><p>Your first clear per starting camp in champ select, and on your minimap while you hold Tab.</p></div>
           <div class="card"><div class="k">1920×1080</div><h3>Any window, any size</h3><p>Borderless or windowed, any resolution: Farmy follows the game window and hides when you Alt-Tab.</p></div>
           <div class="card"><div class="k">v1.9</div><h3>Updates itself</h3><p>New versions download in the background and install when you quit. No more downloading by hand.</p></div>
@@ -121,12 +118,12 @@
       </section>
 
       <section>
-        <h2>Stats window for before and after the game</h2>
+        <h2>The main window for before and after the game</h2>
         <p class="sub">Live game with all ten players and their ranks, your match history with CS/min, KDA and vision trends per
-          game mode, builds, rune pages and Summoner Spells per champion – with suggestions from lolalytics.com.</p>
+          game mode, builds, rune pages and Summoner Spells per champion.</p>
         <div class="shots">
           <img src="stats-history-en.png" width="1164" height="655" loading="lazy" alt="League of Legends match history with CS per minute, KDA and vision score trends">
-          <img src="stats-build-en.png" width="1164" height="655" loading="lazy" alt="Build order, rune page and Summoner Spells per champion with lolalytics suggestions">
+          <img src="stats-build-en.png" width="1164" height="655" loading="lazy" alt="Build order, rune page and Summoner Spells per champion">
         </div>
       </section>
 
@@ -190,7 +187,7 @@
         <div class="grid">
           <div class="card"><h3>Small and quiet</h3><p>One panel next to your HUD, every module can be switched off. No pop-ups in the middle of a fight.</p></div>
           <div class="card"><h3>No ads, no account</h3><p>A standalone Windows app. Nothing to sign up for, nothing to sell, and nothing leaves your PC except public game data requests.</p></div>
-          <div class="card"><h3>Open source</h3><p>The complete source code is on GitHub under the MIT license – check what it does or build it yourself.</p></div>
+          <div class="card"><h3>No tracking</h3><p>Your games, notes and settings stay on your PC. No telemetry, no ads, and everything Farmy loads from the internet is listed in the privacy policy.</p></div>
         </div>
       </section>
 
@@ -219,7 +216,7 @@
         <details>
           <summary>Why does Windows show a SmartScreen warning?</summary>
           <p>The app is not code-signed yet, and new unsigned files get a reputation warning. Click <i>More info → Run
-            anyway</i>. Each release lists its SHA-256 checksum, and the full source code is on GitHub.</p>
+            anyway</i>. Each release lists its SHA-256 checksum.</p>
         </details>
         <details>
           <summary>Does it cost FPS?</summary>
@@ -255,6 +252,9 @@
         <a href="are-lol-overlays-allowed/">Are LoL overlays allowed?</a>
         <a href="de/" hreflang="de" lang="de">Deutsch</a>
         <a href="https://github.com/JamyH/farmy/blob/main/CHANGELOG.md">Changelog</a>
+        <a href="impressum/">Impressum</a>
+        <a href="datenschutz/">Datenschutz</a>
+        <a href="https://github.com/JamyH/farmy/blob/main/LICENSE">Lizenz (MIT)</a>
       </nav>
       Farmy isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone
       officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties

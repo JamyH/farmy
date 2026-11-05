@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://ddragon.leagueoflegends.com data: farmy-theme:; style-src 'self' farmy-theme:; font-src 'self' farmy-theme:">
+  <title>Farmy</title>
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="main-window.css">
+  <link rel="stylesheet" href="main-window/nav.css">
+  <link rel="stylesheet" href="main-window/wiki.css">
+  <script src="theme.js" data-window="main"></script>
+</head>
+<body>
+  <aside class="side">
+    <div class="brand"><img class="logo" src="../assets/icon.png" alt=""><span>Farmy</span></div>
+    <div class="account">
+      <small>Angemeldet als</small>
+      <b id="who">…</b>
+      <small id="session" class="session"></small>
+    </div>
+    <button id="quickBtn" class="quick-btn" title="Strg+K">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <span>Suchen</span><kbd>Strg+K</kbd>
+    </button>
+    <!-- Flache Liste in Gruppen, jeder Eintrag öffnet eine <section> (app.js: showTab) -->
+    <nav aria-label="Hauptmenü">
+      <h3 class="nav-group">Spiel</h3>
+      <button data-tab="live">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg>
+        Live-Spiel
+      </button>
+      <button data-tab="eog">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h12l-2 4 2 4H4"/></svg>
+        Letztes Spiel
+      </button>
+      <h3 class="nav-group">Champions</h3>
+      <button data-tab="wiki">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M9 8h6"/></svg>
+        Champions
+      </button>
+      <button data-tab="build">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>
+        Build &amp; Runen
+      </button>
+      <h3 class="nav-group">Du</h3>
+      <button data-tab="history">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Verlauf
+      </button>
+      <button data-tab="progress">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+        Fortschritt
+      </button>
+      <button data-tab="notes">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+        Notizen
+      </button>
+      <button data-tab="player">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></svg>
+        Spieler
+      </button>
+    </nav>
+    <div class="spacer"></div>
+    <div id="clientState" class="client-state"><i aria-hidden="true"></i><span>Client …</span></div>
+    <button id="styleBtn" class="side-btn" aria-haspopup="dialog">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1 0 1.5-.8 1.5-1.6 0-1.2-1-1.6-1-2.6 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5C21 6.2 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7" r="1"/></svg>
+      Stil
+    </button>
+    <button id="menuBtn" class="side-btn" title="Menü" aria-label="Menü">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      Menü
+    </button>
+  </aside>
+  <div class="content">
+    <div class="page-head">
+      <div>
+        <h1 id="pageTitle">Letztes Spiel</h1>
+        <p id="pageSub"></p>
+      </div>
+      <button id="backBtn" class="ghost back-btn" hidden title="Alt+←">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        <span>Zurück</span>
+      </button>
+      <button id="reload" class="ghost">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>
+        Neu laden
+      </button>
+    </div>
+    <div id="subTabs" class="subtabs" role="tablist"></div>
+    <main>
+      <section id="live" hidden>
+        <div id="liveList"></div>
+        <div class="card calib">
+          <div class="calib-head">
+            <div>
+              <h2>Bildschirm-Erkennung</h2>
+              <p class="hint">Zeigt, welche Bildschirmbereiche das Overlay liest und was es erkennt. Stimmt ein Wert nicht, schick den Screenshot dieses Bereichs mit deiner Auflösung und HUD-Skalierung als GitHub-Issue.</p>
+            </div>
+            <button id="calibBtn" class="ghost">Erkennung prüfen</button>
+          </div>
+          <div id="calibOut" class="calib-out"></div>
+        </div>
+      </section>
+      <section id="eog"></section>
+      <section id="history" hidden></section>
+      <section id="progress" hidden></section>
+      <section id="player" hidden>
+        <form id="playerForm" class="build-head">
+          <label for="playerInput">Riot-ID</label>
+          <input id="playerInput" autocomplete="off" spellcheck="false" placeholder="Name#Tag">
+          <button class="primary" type="submit">Suchen</button>
+        </form>
+        <div id="playerRecent" class="player-recent"></div>
+        <div id="playerOut"></div>
+      </section>
+      <section id="wiki" hidden>
+        <div class="wiki">
+          <div class="wiki-side">
+            <input id="wikiSearch" autocomplete="off" spellcheck="false" placeholder="Champion suchen…" aria-label="Champion suchen…">
+            <div id="wikiRoles" class="seg">
+              <button data-role="TOP">Top</button><button data-role="JUNGLE">Jungle</button><button data-role="MIDDLE">Mid</button><button data-role="BOTTOM">Bot</button><button data-role="SUPPORT">Support</button>
+            </div>
+            <div id="wikiGrid" class="wiki-list"></div>
+          </div>
+          <div id="wikiDetail" class="wiki-detail"><div class="card"><p class="hint">Champion anklicken: Build, Runen, Summoner und Fähigkeiten mit Skalierungen.</p></div></div>
+        </div>
+      </section>
+      <section id="tier" hidden>
+        <div id="tierModes" class="seg">
+          <button data-mode="top">Top</button><button data-mode="jungle">Jungle</button><button data-mode="middle">Mid</button><button data-mode="bottom">ADC</button><button data-mode="support">Support</button><button data-mode="aram">ARAM</button>
+        </div>
+        <div class="build-head">
+          <label for="tierSearch">Champion</label>
+          <input id="tierSearch" autocomplete="off" spellcheck="false" placeholder="Champion suchen…">
+          <label class="tier-mine"><input id="tierMine" type="checkbox"> Nur meine Champs</label>
+        </div>
+        <div id="tierOut" class="card"></div>
+        <p id="tierSource" class="hint"></p>
+      </section>
+      <section id="notes" hidden>
+        <div class="build-head">
+          <label for="noteChamp">Champion</label>
+          <input id="noteChamp" list="champList" autocomplete="off" placeholder="Champion wählen…">
+          <button id="noteGeneral" class="ghost">Allgemeine Notiz</button>
+        </div>
+        <div class="notes-cols">
+          <div class="card notes-list"><h2>Deine Notizen</h2><div id="noteList"></div></div>
+          <div class="card notes-edit">
+            <div class="card-head"><h2 id="noteTitle">Allgemein</h2><span class="note-actions"><span id="noteState" class="hint"></span><button id="noteDelete" class="ghost" hidden>Löschen</button></span></div>
+            <textarea id="noteArea" spellcheck="false" placeholder="z. B. Power-Spikes, Combo, schwierige Matchups („gegen Darius Level 2 meiden“), was du dir vorgenommen hast …"></textarea>
+            <p class="hint">Nur auf deinem PC gespeichert. Wird beim Tippen automatisch gesichert und in „Build &amp; Runen“ beim Champion angezeigt.</p>
+            <div id="noteJournal" class="journal"></div>
+          </div>
+        </div>
+      </section>
+      <!-- Rechtliches (legal.js): über das Menü und den Link unten, nicht in der Seitenleiste -->
+      <section id="legal" hidden></section>
+      <section id="build" hidden>
+        <div class="build-head">
+          <label for="champInput">Champion</label>
+          <input id="champInput" list="champList" autocomplete="off" placeholder="Champion wählen…">
+          <datalist id="champList"></datalist>
+        </div>
+        <div id="noteCard" class="card note-card">
+          <div class="card-head"><h2>Dein Plan</h2><button id="noteEdit" class="ghost">Bearbeiten</button></div>
+          <div id="noteText" class="note-text"></div>
+          <div id="planMore" class="plan"></div>
+        </div>
+        <div id="benchCard" class="card bench" hidden>
+          <h2>ARAM-Bank</h2>
+          <div id="benchList"></div>
+          <p id="benchSource" class="hint"></p>
+        </div>
+        <div id="teamCard" class="card team" hidden>
+          <div class="card-head"><h2>Dein Team</h2><span class="hint">letzte Spiele je Mitspieler · League-Client und Farmys Archiv</span></div>
+          <div id="teamList"></div>
+          <p class="hint">Skill: wie gut er in seinen Spielen im Vergleich zu den anderen 9 Spielern war (50 = Lobby-Schnitt). In Ranked blendet Riot die Namen in der Champ-Auswahl aus, die bleiben dann auch hier verborgen.</p>
+        </div>
+        <div class="card matchup">
+          <div class="card-head"><h2>Matchup</h2><span class="hint">nur vor dem Spiel · lolalytics.com</span></div>
+          <div class="add-row"><input id="vsInput" list="champList" autocomplete="off" placeholder="Gegner wählen…" aria-label="Gegner wählen"></div>
+          <div id="matchupList"></div>
+          <p class="hint">Lane: Siegquote gegen diesen Gegner, Einordnung nach dem bereinigten Wert (Stärke beider Champions herausgerechnet). Level 1–3: First-Blood-Anteil aus echten Spielen und ein gerechnetes All-in aus Grundwerten und den Grundfähigkeiten auf Rang 1 (Meraki Analytics; Abstand = Rest-Leben des Siegers). Passiven und Kontrolleffekte fehlen, also nur ein Anhaltspunkt.</p>
+        </div>
+        <div id="bestCard" class="card best" hidden>
+          <div class="card-head"><h2>Deine besten Champs</h2><span id="bestLane" class="hint"></span></div>
+          <div id="bestList"></div>
+          <p class="hint">Aus deinen eigenen Spielen auf Summoner's Rift in dieser Rolle (ab 2 Spielen je Champ), nach Siegquote.</p>
+        </div>
+        <div id="jungleCard" class="card jungle" hidden>
+          <div class="card-head"><h2>Jungle-Route</h2><a href="#" id="jungleSource" class="hint">Phylaris' Jungle Clear Compilation</a></div>
+          <div id="jungleList"></div>
+          <p class="hint">Erste Runde durch den Jungle, Camps in dieser Reihenfolge, Karte schematisch für deine Seite. Zeiten sind Bestwerte mit Leash aus Videos. Die Tabelle wird nicht mehr jeden Patch gepflegt; die Reihenfolge ändert sich selten, die Zeiten schon.</p>
+        </div>
+        <div class="cols">
+          <div class="card">
+            <h2>Build-Reihenfolge</h2>
+            <ol id="buildList" class="build-list"></ol>
+            <div class="add-row">
+              <input id="itemInput" list="itemOptions" autocomplete="off" placeholder="Item suchen…" aria-label="Item suchen">
+              <datalist id="itemOptions"></datalist>
+              <button id="addItem" class="ghost">Hinzufügen</button>
+            </div>
+            <p class="hint">Im Spiel zeigt das Panel das erste Item der Liste, das du noch nicht hast, und wie viel Gold fehlt. Teile im Inventar werden angerechnet. Reicht dein Gold, erscheint RECALL.</p>
+            <div class="btn-row"><button id="importItemSet" class="ghost">Als Item-Set in den Client</button></div>
+            <label class="check"><span>Beim Pick automatisch als Item-Set in den Client</span><input type="checkbox" id="itemSetAuto"></label>
+            <p id="buildStatus" class="hint"></p>
+            <p class="hint">Das Set „Farmy – Champion“ findest du im Spiel im Shop bei deinen Item-Sets. Deine anderen Sets bleiben unangetastet.</p>
+            <div id="ownItems" class="suggestion"></div>
+            <div id="buildSuggestion" class="suggestion"></div>
+          </div>
+          <div class="stack">
+            <div class="card">
+              <h2>Runen</h2>
+              <div id="runeView" class="rune-view"></div>
+              <div class="btn-row">
+                <button id="applyRunes" class="primary">Jetzt setzen</button>
+                <button id="saveRunes" class="ghost">Aktuelle Runenseite speichern</button>
+              </div>
+              <label class="check"><span>In der Champ-Auswahl automatisch setzen</span><input type="checkbox" id="runesAuto"></label>
+              <p id="runeStatus" class="hint"></p>
+              <p class="hint">Gesetzt wird immer auf die Seite „Farmy“. Deine anderen Runenseiten bleiben unangetastet.</p>
+              <div id="runeSuggestion" class="suggestion"></div>
+            </div>
+            <div class="card">
+              <h2>Summoner</h2>
+              <div id="spellView" class="suggestion"></div>
+              <div class="btn-row"><button id="applySpells" class="primary">Jetzt setzen</button></div>
+              <label class="check"><span>Beim Pick automatisch setzen</span><input type="checkbox" id="spellsAuto"></label>
+              <p id="spellStatus" class="hint"></p>
+              <p class="hint">Was schon passt, bleibt auf seiner Taste (Blitz auf D oder F, wie du es gewohnt bist). Ohne lolalytics-Vorschlag nimmt die App Riots Empfehlung.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card auto">
+          <h2>Automatik</h2>
+          <label class="check"><span>Spiel automatisch annehmen<small>2 Sekunden nach „Spiel gefunden“, selbst ablehnen geht weiter</small></span><input type="checkbox" id="autoAccept"></label>
+          <label class="check"><span>Fenster beim Pick öffnen<small>in der Champ-Auswahl, ohne den Client in den Hintergrund zu schieben</small></span><input type="checkbox" id="openInChampSelect"></label>
+          <label class="check"><span>Vorschläge von lolalytics.com<small>ein Abruf pro Champ-Auswahl, einen Tag gespeichert; eigene Builds und Runen haben Vorrang</small></span><input type="checkbox" id="suggestionsOn"></label>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span><kbd>Strg+Shift+O</kbd> Overlay an/aus</span>
+      <span><kbd>Strg+Shift+E</kbd> Overlay verschieben</span>
+      <span><kbd>Strg+Shift+S</kbd> dieses Fenster</span>
+      <span><kbd>Strg+K</kbd> Champion oder Spieler suchen</span>
+      <a href="#" id="legalLink" class="footer-legal">Rechtliches</a>
+    </footer>
+  </div>
+  <!-- Fenster-Knöpfe am Ende: Chromium rechnet Zieh-Bereiche in DOM-Reihenfolge, sonst überdeckt das „drag“ des
+       Seitenkopfs die Knöpfe und nur ein schmaler Rand bleibt klickbar -->
+  <div class="win-ctl">
+    <button id="winMin" title="Minimieren" aria-label="Minimieren"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 6h8"/></svg></button>
+    <button id="winClose" class="close" title="Schließen" aria-label="Schließen"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg></button>
+  </div>
+  <!-- Stil-Auswahl (style-picker.js): bleibt offen, jeder Klick wechselt sofort -->
+  <dialog id="stylePicker" class="style-picker" aria-label="Stil">
+    <div id="styleList" class="style-list"></div>
+    <div class="style-foot">
+      <button id="styleFolder" class="ghost">Eigene Stile öffnen …</button>
+      <button id="styleReread" class="ghost">Stile neu einlesen</button>
+    </div>
+  </dialog>
+  <!-- Schnellsuche (quick.js): Champion öffnet „Nachschlagen“, Name#Tag die Spielersuche -->
+  <dialog id="quick" class="quick" aria-label="Schnellsuche">
+    <input id="quickInput" autocomplete="off" spellcheck="false" placeholder="Champion oder Name#Tag …">
+    <div id="quickList" class="quick-list" role="listbox"></div>
+    <p class="hint">↑ ↓ wählen · Enter öffnen · Esc schließen</p>
+  </dialog>
+  <script src="i18n.js"></script>
+  <!-- Hauptfenster: ein Skript je Bereich, klassische Skripte mit gemeinsamem globalem Namensraum.
+       Reihenfolge zählt: core zuerst (Helfer), app zuletzt (Reiter, Start mit loadAll) -->
+  <script src="main-window/core.js"></script>
+  <script src="main-window/lastgame.js"></script>
+  <script src="main-window/history.js"></script>
+  <script src="main-window/progress.js"></script>
+  <script src="main-window/progress-profile.js"></script>
+  <script src="main-window/progress-deep.js"></script>
+  <script src="main-window/jungle-review.js"></script>
+  <script src="main-window/live.js"></script>
+  <script src="main-window/players.js"></script>
+  <script src="main-window/tier.js"></script>
+  <script src="main-window/wiki.js"></script>
+  <script src="main-window/champion.js"></script>
+  <script src="main-window/notes.js"></script>
+  <script src="main-window/jungle-route.js"></script>
+  <script src="main-window/team.js"></script>
+  <script src="main-window/matchup.js"></script>
+  <script src="main-window/build.js"></script>
+  <script src="main-window/quick.js"></script>
+  <script src="main-window/style-picker.js"></script>
+  <script src="main-window/legal.js"></script>
+  <script src="main-window/app.js"></script>
+
+</body>
+</html>

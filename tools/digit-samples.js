@@ -1,14 +1,14 @@
-// Lernt die Ziffern-Muster für src/digits.js aus vorhandenen Aufnahmen: npx electron tools/digit-samples.js
+// Lernt die Ziffern-Muster für src/screen/digits.js aus vorhandenen Aufnahmen: npx electron tools/digit-samples.js
 // - Summoner-Restzeiten (weiß) aus debug/spells/, CS (gelb) aus den Screenshots in debug/
 // - Beschriftung zunächst per Tesseract; Korrekturen in tools/digit-labels.json ({ "datei": "Wert" })
-// - schreibt debug/digit-sheet.png zum Nachprüfen und mit --learn die Muster nach src/digits.json
+// - schreibt debug/digit-sheet.png zum Nachprüfen und mit --learn die Muster nach src/screen/digits.json
 // - meldet, wie oft die eigene Erkennung (jeweils ohne die geprüfte Aufnahme gelernt) daneben liegt
 const { app, nativeImage, BrowserWindow } = require('electron');
 const fs = require('fs');
 const path = require('path');
-const ocr = require('../src/ocr');
-const digits = require('../src/digits');
-const layout = require('../src/layout');
+const ocr = require('../src/screen/ocr');
+const digits = require('../src/screen/digits');
+const layout = require('../src/screen/layout');
 
 const root = path.join(__dirname, '..');
 const dbg = path.join(root, 'debug');
@@ -110,8 +110,8 @@ app.whenReady().then(async () => {
     const t = learn(all);
     const round = (a) => Array.from(a, (v) => Math.round(v * 100) / 100);
     const json = Object.fromEntries(Object.entries(t).map(([f, ds]) => [f, Object.fromEntries(Object.entries(ds).map(([d, a]) => [d, round(a)]))]));
-    fs.writeFileSync(path.join(root, 'src', 'digits.json'), JSON.stringify({ H: digits.H, W: digits.W, ...json }));
-    console.log('src/digits.json geschrieben');
+    fs.writeFileSync(path.join(root, 'src', 'screen', 'digits.json'), JSON.stringify({ H: digits.H, W: digits.W, ...json }));
+    console.log('src/screen/digits.json geschrieben');
   }
 
   // Übersicht: Ausschnitt, Maske, Tesseract, Beschriftung, eigene Erkennung

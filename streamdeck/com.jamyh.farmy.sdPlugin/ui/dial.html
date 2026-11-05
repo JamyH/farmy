@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>Overlay-Regler</title>
+  <!-- Einstellungsfeld „Overlay-Regler“: was der Drehregler verstellt -->
+  <link rel="stylesheet" href="pi.css" />
+</head>
+<body>
+  <div class="row"><label for="choice" data-de="Regler" data-en="Dial">Regler</label><select id="choice" data-setting="key"></select></div>
+  <p class="hint" data-de="Drehen verstellt, Drücken wechselt zwischen Größe und Transparenz." data-en="Turn to adjust, press to switch between size and transparency.">Drehen verstellt, Drücken wechselt zwischen Größe und Transparenz.</p>
+  <hr />
+  <div class="row"><label for="port" data-de="Farmy-Port" data-en="Farmy port">Farmy-Port</label><input id="port" type="number" min="1024" max="65535" placeholder="47101" /></div>
+  <p class="hint" data-de="Farmy muss laufen. Der Port gilt für alle Farmy-Tasten." data-en="Farmy has to be running. The port applies to all Farmy keys.">Farmy muss laufen. Der Port gilt für alle Farmy-Tasten.</p>
+  <!-- Schlüssel wie in plugin.js → DIAL und deck.js → ADJUST -->
+  <script>window.FARMY_CHOICES = [
+    { id: 'scale', name: { de: 'Overlay-Größe', en: 'Overlay size' } },
+    { id: 'bgTransparency', name: { de: 'Hintergrund-Transparenz', en: 'Background transparency' } },
+  ];</script>
+  <script src="pi.js"></script>
+</body>
+</html>

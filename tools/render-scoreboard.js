@@ -9,8 +9,8 @@ app.whenReady().then(async () => {
   const root = path.join(__dirname, '..');
   const config = JSON.parse(fs.readFileSync(path.join(root, 'config.json'), 'utf8'));
   const { summary, data } = JSON.parse(fs.readFileSync(path.join(root, 'debug', 'last-game.json'), 'utf8'));
-  const live = require('../src/live');
-  await require('../src/ddragon').load(app.getPath('userData'), lang.ddLang);
+  const live = require('../src/game/live');
+  await require('../src/data/ddragon').load(app.getPath('userData'), lang.ddLang);
   summary.scoreboard = live.scoreboard(data);
   // --long: große Diffs testen, ob die Badges noch über den Ward-Slot passen
   if (process.argv.includes('--long')) {

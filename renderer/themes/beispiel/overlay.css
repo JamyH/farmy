@@ -1,0 +1,8 @@
+/* Eigenes CSS fürs Overlay im Spiel (optional). / Own CSS for the in-game overlay (optional).
+
+   Variablen / variables:
+   --panel-rgb (Panel-Farbe als "r, g, b", die Deckkraft stellt man im ⚙ ein)
+   --tile --tile-hi --line --line-2 --track --text --text-2 --muted
+   --accent --accent-ink --bad --bad-ink --gold --gold-ink --blue
+   --r-panel --r-tile --r-pill (Rundungen / corner radius)
+*/

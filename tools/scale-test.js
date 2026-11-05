@@ -3,8 +3,8 @@
 const { app, nativeImage } = require('electron');
 const fs = require('fs');
 const path = require('path');
-const ocr = require('../src/ocr');
-const layout = require('../src/layout');
+const ocr = require('../src/screen/ocr');
+const layout = require('../src/screen/layout');
 
 app.whenReady().then(async () => {
   const [file, g] = process.argv.slice(-2);

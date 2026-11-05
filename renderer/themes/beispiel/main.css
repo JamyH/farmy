@@ -1,0 +1,10 @@
+/* Eigenes CSS fürs Hauptfenster (optional). Wird nach allem anderen geladen, gewinnt also.
+   Own CSS for the main window (optional). Loaded last, so it wins.
+
+   Variablen / variables:
+   --bg --side --card --tile --tile-hi --line --line-2 --text --text-2 --muted
+   --accent --accent-ink --accent-soft --gold --blue --win --loss
+
+   Beispiel / example:
+   .card { border-radius: 0; }
+*/

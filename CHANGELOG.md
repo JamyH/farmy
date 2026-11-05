@@ -1,5 +1,111 @@
 # Changelog
 
+## Unveröffentlicht
+
+Neu
+- Stream Deck: eigenes Farmy-Plugin mit drei Aktionen
+  - „Farmy-Wert“ zeigt auf einer Taste oder einem Drehregler einen Wert: CS/min mit Ziel, CS, KDA, Gold, Level mit XP,
+    Wellen bis zum Level-up, Sichtwert, Mana-Warnung, Summoner D/F und Aktiv-Item (Zhonya, QSS …) mit Restzeit,
+    Session-Ziel, Jungle-Clear-Zeit mit Bestzeit, Spielzeit sowie „Heute“ (Siege–Niederlagen, LP, auch ohne Spiel).
+    Drücken oder Drehen wechselt den Wert
+  - „Farmy-Knopf“: Overlay ein/aus, Klick-durch, Panel kompakt, Moment markieren, Build übernehmen (eigene Runen +
+    Item-Set in der Champ-Auswahl), Auto-Accept ein/aus, Hauptfenster auf einem Reiter öffnen. Die Taste zeigt den Stand
+  - „Overlay-Regler“: Drehregler für Overlay-Größe bzw. Hintergrund-Transparenz, Drücken wechselt zwischen beiden
+  - Mitgeliefertes Profil „Farmy“ (Stream Deck +) mit fertiger Belegung, zum selbst Auswählen
+  - „Moment markieren“ setzt eine Marke ins Spielprotokoll; der Rückblick unter „Letztes Spiel“ zeigt „Markiert bei …“
+  Farmy gibt Werte und Knöpfe dafür nur auf diesem PC frei (127.0.0.1, Port 47101, in config.json unter „deck“
+  änderbar oder abschaltbar); das Stream Deck bekommt ein neues Bild nur, wenn sich der Wert ändert
+- Fortschritt, Spielerprofil und Letztes Spiel: neuer Skill-Bereich „Schaden pro Leben“ (Schaden an Champions geteilt
+  durch erlittenen Schaden). Wie „Schaden pro Tod“, zählt aber auch Trades ohne Tod und wie viel Leben ein Tod gekostet hat
+- Neuer Look für Hauptfenster und Overlay, angelehnt an die Anzeigen im Spiel: fast schwarz, feine Goldlinien, eckig,
+  Titel, Menü und Labels in schmalen Versalien (Barlow Condensed), große Zahlen. Gold nur für Aktives und Empfohlenes,
+  Sieg/Niederlage in Blau/Rot wie die Teams im Spiel
+- Eigene Stile (Menü → Stil oder „Stil“ in der Seitenleiste): „Eigene Stile öffnen …“ legt ein
+  Beispiel an; eine theme.json mit Farben, einer Schrift-Datei aus dem Ordner oder einer installierten Schrift (nichts
+  aus dem Netz) und Hintergrundbild reicht, wer will, schreibt eigenes CSS dazu. Änderungen am aktiven Stil sind sofort
+  zu sehen. Gewechselt wird live ohne Neuladen; die Auswahl in der Seitenleiste bleibt beim Durchklicken offen
+- Reiter „Champions“ (ganz oben im Hauptfenster): kleines Wiki zum Nachschlagen, auch während des Spiels. Alle
+  Champions als Icons nach Rolle sortiert (Filter Top/Jungle/Mid/Bot/Support, Suche, Enter öffnet den ersten Treffer);
+  im laufenden Spiel stehen die Champions der Partie oben, Gegner rot umrandet. Klick zeigt Summoner, Runen,
+  Start-Items, Build und Skill-Reihenfolge je Lane oder ARAM (lolalytics.com, ohne Siegquoten) sowie alle Fähigkeiten
+  mit Beschreibung, Abklingzeit, Kosten und Werten je Rang samt Skalierungen (Meraki Analytics). Auf schnelles Ablesen
+  gebaut: Liste und Champion füllen das Fenster und scrollen jeweils für sich, der Build steht kompakt als Icons (Name
+  beim Drüberfahren), die Fähigkeiten als Reiter P Q W E R, umschaltbar per Klick oder Taste
+- Reiter „Tierliste“: stärkste Champions je Lane (Top, Jungle, Mid, ADC, Support) und im ARAM von lolalytics.com
+  (Emerald+, aktueller Patch) mit Tier, Siegquote, Pickrate, Bannrate und Spielen, sortierbar per Klick auf die
+  Spalte. Suche nach Champion (findet auch Off-Meta-Picks der Lane), Spalte „Du“ mit deinen eigenen Spielen und
+  Siegquote, Filter „Nur meine Champs“. Klick auf einen Champion öffnet „Build & Runen“
+- Panel „Gegner“ (Kluft und ARAM, im ⚙ abschaltbar): wie viel magischer bzw. körperlicher Schaden vom gegnerischen
+  Team kommt, ob es viel CC hat und wer stark heilt, dazu bis zu drei Item-Optionen dagegen, passend zu deinem
+  Spielstil (Magier, körperlicher Schaden, Tank) – z. B. Merkurs Schuhe, Naturgewalt, Dornenpanzer. Grundlage sind
+  Riots Champion-Daten aus dem Client, angepasst an die Items, die die Gegner gerade tragen. Farmy zeigt nur
+  Optionen und kauft nichts
+- „Dein Team“ in der Champ-Auswahl (Reiter „Build & Runen“): je Mitspieler Solo/Duo-Rang, Form der letzten Spiele
+  (Siege/Niederlagen, Serie), Hauptrolle mit Hinweis, wenn er die zugeteilte Rolle selten spielt, meistgespielte
+  Champions, wie oft er seinen Pick zuletzt gespielt hat, und die Skill-Einschätzung gegen seine Lobbys. Namen führen
+  zum Profil. In Ranked verborgene Namen bleiben verborgen (kein Lobby-Reveal)
+- Live-Spiel: Hinweise unter jedem Spieler. **Premade/Duo** (gleiche Farbe = gleiche Gruppe, erkannt an mindestens
+  2 gemeinsamen Spielen auf derselben Seite in den letzten Spielen, Maus drauf zeigt mit wem), Sieges- oder
+  Niederlagenserie ab 3, OTP, „5× auf dem Champ“, „neu auf dem Champ“ (nicht in ARAM/Arena) und „Smurf?“ (Level
+  unter 60 mit 70 % Siegen). Funktioniert auch in Arena 3x6
+- Arena im Fortschritt: eigener Modus „Arena“ (alle Varianten, auch 3x6) mit Skill-Bereich Platzierung, Karte
+  „Platzierungen“ (wie oft welcher Platz, Ø Platz, obere Hälfte) und „Augments“ (deine häufigsten mit Ø Platz). Farmy
+  merkt sich je Arena-Spiel Platzierung und Augments; ältere Arena-Spiele werden ergänzt
+- Spiel-Archiv: Der Client gibt je Spieler nur die letzten 20 Spiele heraus. Farmy merkt sich jetzt jedes Spiel, das
+  es lädt (eigene Spiele, Spielersuche, Skill-Einschätzung, Dein Team), mit allen 10 Spielern. Profile und „Dein Team“
+  zeigen dadurch mit der Zeit mehr Spiele (bis 100, ältere nach Klick auf „Alle … Spiele zeigen“), die
+  Skill-Einschätzung wird genauer. Gespeichert in archive.jsonl, höchstens 6000 Spiele (~30 MB)
+- Fortschritt: neuer Skill-Bereich „Schaden pro Tod“ („Good Death“: hat sich dein Sterben gelohnt?), mit Verlauf,
+  Tipp und Vergleich wie die anderen Bereiche; bisher nur im Spielerprofil
+- Drei Builds statt einem: das Item-Set „Farmy – Champ“ im Shop und die Build-Seite zeigen neben dem
+  lolalytics-Build auch „Meistgespielt“, „Höchste Siegrate“ und eine Alternative (je mit „Übernehmen“)
+
+Geändert
+- Das Overlay ist jetzt in Bildschirmaufnahmen sichtbar (Discord-Stream, OBS, Screenshots); der Aufnahme-Schutz
+  ist aus. Leg das Panel nicht über die abgelesenen HUD-Felder (CS, Gold, Spielzeit), sonst kann die Erkennung gestört werden
+- Das Stats-Fenster ist jetzt einfach das Hauptfenster von Farmy: Tray-Menü „Farmy öffnen“, gleiches Tastenkürzel
+  (Strg+Shift+S). Bestehende Einstellungen werden beim ersten Start übernommen
+- Seitenleiste des Hauptfensters in Gruppen geordnet: Spiel (Live-Spiel, Letztes Spiel), Champions (Champions,
+  Build & Runen), Du (Verlauf, Fortschritt, Notizen, Spieler). Die Tierliste ist jetzt eine Ansicht von „Champions“
+  (oben umschaltbar: Nach Rolle / Tierliste); Klick in der Tierliste öffnet den Champion mit dem Build für diese Lane.
+  Neu: Schnellsuche mit Strg+K oder „Suchen“ in der Seitenleiste, findet Champions und Spieler (Name#Tag, zuletzt
+  gesuchte). „Zurück“ wie im Browser (Knopf oben, Maustaste „Zurück“, Alt+←), z. B. nach „In Build & Runen öffnen“
+  wieder zum Champion
+- Farmy bleibt kostenlos und Open Source (MIT). Neue Seite „Rechtliches“ (Menü → „Über Farmy und Rechtliches“, Link
+  unten im Hauptfenster): Lizenz, Quellcode, Datenschutz, Impressum, Riot-Hinweis, Datenquellen mit Lizenz und die
+  Lizenztexte aller mitgelieferten Fremd-Software
+- Builds, Runen-Vorschläge, Tierliste und Matchup-Statistik von lolalytics.com sowie die Jungle-Routen-Tabelle sind
+  abgeschaltet, bis eine Nutzungserlaubnis vorliegt. Runen und Summoner kommen von Riots eigener Empfehlung im Client
+  (auch im Champion-Wiki), Jungle-Route ist die Standard-Full-Clear
+- Datenschutz: Schriften und die Sprachdaten der Texterkennung liegen jetzt bei, nichts davon wird mehr aus dem
+  Internet geladen (bisher Google Fonts und jsDelivr). Eigene Stile nehmen eine Schrift-Datei aus ihrem Ordner oder
+  eine installierte Schrift
+- Electron 44.10 (vorher 33, ohne Sicherheitsupdates; 44.10 enthält den Schutz vor den kompromittierten
+  eMudhra-Zertifikaten). Die gebaute App lässt sich nicht mehr als Node-Umgebung starten, weist ein verändertes
+  App-Archiv ab (Electron Fuses)
+
+Behoben
+- Live-Spiel: Spielten mehrere denselben Champion (Arena 3x6), konnten Rang und Hinweise beim falschen Spieler stehen.
+  Zugeordnet wird jetzt über die Riot-ID
+- Live-Spiel: Champion-Bild fehlte, wenn ein Skin-Tool wie Rose den Champion-Namen umschreibt
+  („rose_character_displayname_…“); betraf auch Overlay-Werte zum eigenen Champ (Fähigkeiten, Build, Clears)
+- Letztes Spiel: War das Hauptfenster beim Spielende schon offen, blieb „Keine Endspiel-Daten“ stehen, bis man
+  „Neu laden“ drückte. Jetzt lädt die Auswertung bei Spielende von selbst und das Fenster wechselt von „Live-Spiel“ dorthin
+- Eine beschädigte config.json ließ Farmy beim Start ohne Meldung abstürzen; jetzt wird sie als
+  config.kaputt-….json beiseitegelegt und Farmy startet mit den Standardwerten. Das Fehler-Log (debug/error.log)
+  wächst nicht mehr unbegrenzt (höchstens 1 MB)
+- Spielzeit per OCR (Dev-Schalter): Eine 6 an der Minutenstelle wurde nicht gelesen, die Uhr blieb dann eine Minute
+  lang stehen (im Spiel-Log fehlten die Minuten 6, 16, 26, 36); ein als 1 gelesener Doppelpunkt machte aus 4:15
+  plötzlich 41:15. Farmy übernimmt eine Lesung jetzt nur, wenn sie zur weiterlaufenden Uhr und zur Live-API passt, und
+  zählt dazwischen selbst weiter
+- Item-Sets kamen nicht mehr in den Client: Alle Sets zusammen waren größer als die 64 KB, die der Client annimmt
+  (Fehler 413). Wird es zu viel, löscht Farmy jetzt seine ältesten eigenen Sets (zuerst die alten „All You Need“-Sets),
+  fremde Sets bleiben
+- Skill-Einschätzung im Spielerprofil: wählt die Map (Kluft/ARAM) nach nutzbaren Spielen; Spiele gegen Bots ließen
+  sie sonst oft ohne Wert
+- Rang anderer Spieler: Der Client meldet bei ihnen immer 0 Niederlagen, Farmy zeigte deshalb 100 % Siegquote. Jetzt
+  steht dort nur die Zahl der Siege
+
 ## 1.9.0 – 2026-10-29
 
 Neu

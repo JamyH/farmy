@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>Farmy-Knopf</title>
+  <!-- Einstellungsfeld „Farmy-Knopf“: was die Taste auslöst -->
+  <link rel="stylesheet" href="pi.css" />
+</head>
+<body>
+  <div class="row"><label for="choice" data-de="Aktion" data-en="Action">Aktion</label><select id="choice" data-setting="button"></select></div>
+  <p class="hint" data-de="Die Taste zeigt den aktuellen Stand (an/aus)." data-en="The key shows the current state (on/off).">Die Taste zeigt den aktuellen Stand (an/aus).</p>
+  <hr />
+  <div class="row"><label for="port" data-de="Farmy-Port" data-en="Farmy port">Farmy-Port</label><input id="port" type="number" min="1024" max="65535" placeholder="47101" /></div>
+  <p class="hint" data-de="Farmy muss laufen. Der Port gilt für alle Farmy-Tasten." data-en="Farmy has to be running. The port applies to all Farmy keys.">Farmy muss laufen. Der Port gilt für alle Farmy-Tasten.</p>
+  <script src="../bin/look.js"></script>
+  <script src="../bin/buttons.js"></script>
+  <script>window.FARMY_CHOICES = FarmyButtons.list;</script>
+  <script src="pi.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "Beispiel",
+  "colors": {
+    "accent": "#ff4f8b",
+    "accent-soft": "rgba(255, 79, 139, 0.12)",
+    "gold": "#ff4f8b"
+  },
+  "overlayColors": {
+    "panel-rgb": "24, 14, 26"
+  },
+  "font": "Segoe UI",
+  "background": "",
+  "backgroundDim": 0.65
+}

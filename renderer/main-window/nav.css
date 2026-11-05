@@ -1,0 +1,68 @@
+/* Navigation: Suchknopf in der Seitenleiste, Unterseiten-Leiste im Seitenkopf, Schnellsuche (quick.js) */
+/* Seitenleiste zu hoch (kleines Fenster, größere Schrift im Stil): scrollen statt Knöpfe stauchen */
+.side > *, nav > * { flex-shrink: 0; }
+.quick-btn {
+  width: 100%; margin-bottom: 10px; padding: 0 10px; gap: 8px;
+  border-color: var(--line); background: transparent; color: var(--muted); font: 500 13px var(--font); text-transform: none; letter-spacing: 0;
+}
+.quick-btn:hover { border-color: var(--line-2); color: var(--text); }
+.quick-btn span { flex: 1; text-align: left; }
+.quick-btn kbd { font-size: 10px; color: var(--muted); }
+
+.subtabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 16px 32px 0; border-bottom: 1px solid var(--line); }
+.subtabs button {
+  height: 34px; padding: 0 12px; margin-bottom: -1px;
+  border: 0; border-bottom: 2px solid transparent; border-radius: 0;
+  color: var(--muted); font-size: 14px;
+}
+.subtabs button:hover { color: var(--text); }
+.subtabs button[aria-selected="true"] { border-bottom-color: var(--accent); color: var(--text); font-weight: 600; }
+.subtabs[hidden] { display: none; }
+
+.quick {
+  width: min(520px, calc(100vw - 32px)); margin-top: 12vh; padding: 10px;
+  border: 1px solid var(--line-2); border-radius: var(--r);
+  background: var(--card); color: var(--text);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.quick::backdrop { background: rgba(0, 0, 0, 0.45); }
+.quick input { width: 100%; box-sizing: border-box; height: 42px; font-size: 15px; }
+.quick-list { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; max-height: 50vh; overflow-y: auto; }
+.quick-list button { width: 100%; height: 40px; padding: 0 10px; border: 0; font: 500 13.5px var(--font); text-transform: none; letter-spacing: 0; }
+.quick-list button[aria-selected="true"], .quick-list button:hover { background: var(--tile-hi); }
+.quick-list img { width: 26px; height: 26px; border-radius: var(--r); }
+.quick-list span { flex: 1; text-align: left; }
+.quick-list small { color: var(--muted); font-weight: 400; }
+.quick .hint { margin: 8px 4px 2px; }
+
+@media (max-width: 760px) {
+  .quick-btn { justify-content: center; padding: 0; }
+  .quick-btn span, .quick-btn kbd { display: none; }
+  .subtabs { padding-left: 20px; padding-right: 20px; }
+}
+
+/* Gruppen-Überschriften in der Seitenleiste */
+.nav-group { margin: 14px 12px 4px; font: 600 12px var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.nav-group:first-child { margin-top: 0; }
+@media (max-width: 760px) {
+  .nav-group { margin: 8px 0 2px; height: 1px; font-size: 0; background: var(--line); }
+}
+
+/* Zurück zur vorigen Seite (app.js: backStack) */
+.back-btn[hidden] { display: none; }
+
+/* Stil-Auswahl (style-picker.js): nicht modal neben der Seitenleiste, bleibt beim Durchklicken offen */
+.style-picker {
+  position: fixed; top: auto; right: auto; margin: 0; z-index: 20; width: 240px; padding: 10px;
+  border: 1px solid var(--line-2); border-radius: var(--r); background: var(--card); color: var(--text);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+.style-list { display: flex; flex-direction: column; gap: 2px; }
+.style-list h3 { margin: 8px 6px 4px; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.style-tile { width: 100%; height: 38px; padding: 0 8px; border: 1px solid transparent; }
+.style-tile:hover { background: var(--tile-hi); }
+.style-tile[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.style-swatch { position: relative; width: 26px; height: 18px; border-radius: var(--r); background: var(--sw-bg); border: 1px solid rgba(255, 255, 255, 0.18); }
+.style-swatch i { position: absolute; right: 3px; bottom: 3px; width: 8px; height: 8px; border-radius: 50%; background: var(--sw-accent); }
+.style-foot { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+.style-foot button { width: 100%; height: 32px; font-size: 12px; }

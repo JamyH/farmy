@@ -2,9 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://ddragon.leagueoflegends.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://ddragon.leagueoflegends.com farmy-theme:; style-src 'self' farmy-theme:; font-src 'self' farmy-theme:">
+  <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="overlay.css">
+  <script src="theme.js" data-window="overlay"></script>
 </head>
 <body>
   <div id="panel" class="panel">
@@ -46,6 +47,7 @@
     </div>
     <div id="lane" class="lane"></div>
     <div id="gank" class="gank" hidden></div>
+    <div id="threat" class="threat" hidden></div>
     <div id="teamRow" class="row"><label>Team-Itemwert</label><b id="teamDiff">–</b></div>
     <div id="foot" class="foot"></div>
   </div>
@@ -61,7 +63,11 @@
     <div id="sbRows"></div>
   </div>
   <script src="i18n.js"></script>
-  <script src="overlay.js"></script>
+  <script src="overlay/core.js"></script>
+  <script src="overlay/overlays.js"></script>
+  <script src="overlay/panel.js"></script>
+  <script src="overlay/mouse.js"></script>
+  <script src="overlay/settings.js"></script>
 
 </body>
 </html>

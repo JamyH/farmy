@@ -1,0 +1,5 @@
+/* Eigene Stile (src/main/themes.js): wendet an, was renderer/theme.js als Variablen an <html> setzt */
+html[data-theme-font], html[data-theme-font] body { font-family: var(--theme-font), sans-serif; }
+/* Hintergrundbild im Hauptfenster, abgedunkelt; Seitenleiste und Inhalt lassen es durchscheinen */
+html[data-theme-bg] body { background: linear-gradient(var(--theme-bg-dim), var(--theme-bg-dim)), var(--theme-bg-image) center / cover fixed; }
+html[data-theme-bg] .side, html[data-theme-bg] .content { background: transparent; }

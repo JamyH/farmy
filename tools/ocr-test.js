@@ -3,8 +3,8 @@
 const { app, nativeImage } = require('electron');
 const fs = require('fs');
 const path = require('path');
-const ocr = require('../src/ocr');
-const capture = require('../src/capture');
+const ocr = require('../src/screen/ocr');
+const capture = require('../src/screen/screengrab');
 
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config.json'), 'utf8'));
 const c = config.ocr;

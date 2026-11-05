@@ -1,0 +1,8 @@
+/* Einstellungsfelder: angelehnt an die Felder des Stream Decks selbst (dunkel, Beschriftung rechtsbündig links) */
+body { margin: 0; padding: 8px 12px; background: #2d2d2d; color: #d8d8d8; font: 12px 'Segoe UI', sans-serif; }
+.row { display: flex; align-items: center; margin: 6px 0; }
+.row > label:first-child { width: 92px; flex: none; text-align: right; margin-right: 12px; color: #969696; }
+select, input[type='number'] { flex: 1; min-width: 0; background: #3d3d3d; color: #d8d8d8; border: 0; border-radius: 3px; padding: 4px 6px; font: inherit; }
+.check { display: flex; align-items: center; gap: 6px; }
+.hint { margin: 10px 0 0 104px; color: #969696; line-height: 1.4; }
+hr { border: 0; border-top: 1px solid #3d3d3d; margin: 10px 0; }

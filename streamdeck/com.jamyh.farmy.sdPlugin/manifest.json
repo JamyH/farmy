@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+  "Name": "Farmy",
+  "Version": "0.2.0.0",
+  "Author": "Jamy Haas",
+  "Description": "Werte und Knöpfe aus Farmy (CS/min, KDA, Summoner, Overlay ein/aus, Moment markieren …) auf Tasten und Drehreglern. Farmy muss laufen.",
+  "UUID": "com.jamyh.farmy",
+  "URL": "https://jamyh.github.io/farmy/",
+  "Icon": "imgs/plugin-icon",
+  "Category": "Farmy",
+  "CategoryIcon": "imgs/category-icon",
+  "CodePath": "bin/plugin.js",
+  "SDKVersion": 2,
+  "Software": { "MinimumVersion": "6.5" },
+  "OS": [{ "Platform": "windows", "MinimumVersion": "10" }],
+  "Nodejs": { "Version": "24", "Debug": "disabled" },
+  "Profiles": [
+    { "Name": "profiles/Farmy", "DeviceType": 7, "ReadOnly": false, "DontAutoSwitchWhenInstalled": true, "AutoInstall": true }
+  ],
+  "Actions": [
+    {
+      "UUID": "com.jamyh.farmy.stat",
+      "Name": "Farmy-Wert",
+      "Tooltip": "Zeigt einen Wert aus dem laufenden Spiel. Drücken oder Drehen wechselt den Wert.",
+      "Icon": "imgs/action",
+      "PropertyInspectorPath": "ui/stat.html",
+      "Controllers": ["Keypad", "Encoder"],
+      "Encoder": {
+        "layout": "$B1",
+        "Icon": "imgs/action",
+        "TriggerDescription": { "Rotate": "Wert wechseln", "Push": "Wert wechseln" }
+      },
+      "States": [{ "Image": "imgs/key", "ShowTitle": false }],
+      "SupportedInMultiActions": false
+    },
+    {
+      "UUID": "com.jamyh.farmy.button",
+      "Name": "Farmy-Knopf",
+      "Tooltip": "Overlay ein/aus, Klick-durch, Hauptfenster, Moment markieren, Build übernehmen, Auto-Accept.",
+      "Icon": "imgs/action",
+      "PropertyInspectorPath": "ui/button.html",
+      "Controllers": ["Keypad", "Encoder"],
+      "Encoder": {
+        "layout": "$B1",
+        "Icon": "imgs/action",
+        "TriggerDescription": { "Push": "Auslösen" }
+      },
+      "States": [{ "Image": "imgs/key", "ShowTitle": false }],
+      "SupportedInMultiActions": true
+    },
+    {
+      "UUID": "com.jamyh.farmy.dial",
+      "Name": "Overlay-Regler",
+      "Tooltip": "Drehregler für Größe oder Hintergrund-Transparenz des Farmy-Overlays.",
+      "Icon": "imgs/action",
+      "PropertyInspectorPath": "ui/dial.html",
+      "Controllers": ["Encoder"],
+      "Encoder": {
+        "layout": "$B1",
+        "Icon": "imgs/action",
+        "TriggerDescription": { "Rotate": "Verstellen", "Push": "Größe/Transparenz wechseln" }
+      },
+      "States": [{ "Image": "imgs/key", "ShowTitle": false }],
+      "SupportedInMultiActions": false
+    }
+  ]
+}

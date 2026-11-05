@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>Farmy-Wert</title>
+  <!-- Einstellungsfeld „Farmy-Wert“: welcher Wert auf der Taste steht -->
+  <link rel="stylesheet" href="pi.css" />
+</head>
+<body>
+  <div class="row"><label for="choice" data-de="Wert" data-en="Value">Wert</label><select id="choice" data-setting="stat"></select></div>
+  <p class="hint" data-de="Drücken oder Drehen wechselt den Wert." data-en="Press or turn to switch the value.">Drücken oder Drehen wechselt den Wert.</p>
+  <hr />
+  <div class="row"><label for="port" data-de="Farmy-Port" data-en="Farmy port">Farmy-Port</label><input id="port" type="number" min="1024" max="65535" placeholder="47101" /></div>
+  <p class="hint" data-de="Farmy muss laufen. Der Port gilt für alle Farmy-Tasten." data-en="Farmy has to be running. The port applies to all Farmy keys.">Farmy muss laufen. Der Port gilt für alle Farmy-Tasten.</p>
+  <script src="../bin/look.js"></script>
+  <script src="../bin/stats.js"></script>
+  <script>window.FARMY_CHOICES = FarmyStats.list;</script>
+  <script src="pi.js"></script>
+</body>
+</html>

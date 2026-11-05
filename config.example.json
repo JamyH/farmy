@@ -16,9 +16,9 @@
   "hotkeys": {
     "toggleOverlay": "Ctrl+Shift+O",
     "editMode": "Ctrl+Shift+E",
-    "openStats": "Ctrl+Shift+S"
+    "openMain": "Ctrl+Shift+S"
   },
-  "autoOpenStatsAfterGame": true,
+  "autoOpenAfterGame": true,
   "autoAccept": false,
   "autoAcceptDelayMs": 2000,
   "ocr": {
@@ -48,5 +48,9 @@
   "itemSetAuto": true,
   "lolalytics": {
     "enabled": true
+  },
+  "rose": {
+    "exe": "",
+    "mods": ""
   }
 }

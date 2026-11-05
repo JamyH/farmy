@@ -68,12 +68,11 @@ often there is an allowed variant. Found something that is read wrong? Use the
 - XP to the next level, including "X melee / Y caster minions"
 - Mana bar with your combo cost (Q+W+E+R at current ranks) and a **NO MANA** warning
 - Savings goal: next item from your build, gold still missing, **RECALL** once you can afford it
-- Skill hint: which ability to level next (lolalytics skill order) while a point is unspent
 - Item cooldowns (Zhonya's, Stopwatch, Guardian Angel …) read from your item slots
 - Item value difference to your lane opponent and the enemy team
 - Ward trinket cooldown, role quest progress, CS goal per minute (your own average on the champion) and, for
   junglers, your first clear time and a lane overview (item value, kills and level per lane – no win rates)
-- Session goal from the stats window (e.g. "at most 5 deaths") with your current value
+- Session goal from the main window (e.g. "at most 5 deaths") with your current value
 - In-game settings (⚙ in the panel header): switch every module on or off, compact mode, UI scale, background
   and hover transparency, click-through
 
@@ -82,7 +81,7 @@ often there is an allowed variant. Found something that is read wrong? Use the
 - Finds the scoreboard on its own, even if you moved it
 
 **Jungle route**
-- In champ select (stats window, Build tab) for junglers: the first clear per starting camp as a mini map with
+- In champ select (main window, Build tab) for junglers: the first clear per starting camp as a mini map with
   numbered camps, clear time, smites, patch and video, from
   [Phylaris' Jungle Clear Compilation](https://docs.google.com/spreadsheets/d/1Gjk5UrtAbcqdYnRlx9KMDuHGxhKsEv50vhn02cN0y-c);
   champions without an entry get the standard full clear
@@ -90,13 +89,12 @@ often there is an allowed variant. Found something that is read wrong? Use the
   you hold Tab. Size and transparency in ⚙. Farmy finds the minimap on screen, so any minimap size works
 - The sheet is no longer updated every patch: the camp order rarely changes, the times may be outdated
 
-**Stats window** (frameless, opens only when you want it: tray, Ctrl+Shift+S – also in game – or a second start)
+**Main window** (frameless, opens only when you want it: tray, Ctrl+Shift+S – also in game – or a second start)
 - Live game: all 10 players with rank, win rate, level, KDA, CS, vision, items, item value
 - Last game and match history with trend charts (CS/min, KDA, vision), split by game mode (Rift, ARAM,
   ARAM Mayhem …)
-- Matchup (before the game only): for each enemy pick in champ select, or any champion you choose, your win
-  rate against it from lolalytics (winning / losing lane) and who is ahead at levels 1–3 – first-blood rate
-  from real games plus a computed all-in from base stats and rank-1 basic abilities
+- Matchup (before the game only): for each enemy pick in champ select, or any champion you choose, who is ahead
+  at levels 1–3 – a computed all-in from base stats and rank-1 basic abilities
   ([Meraki Analytics](https://github.com/meraki-analytics/lolstaticdata) data; no passives or crowd control)
 - Build order and rune page per champion; runes are applied automatically in champ select to a
   dedicated page called "Farmy" (your other pages are never touched)
@@ -121,10 +119,10 @@ often there is an allowed variant. Found something that is read wrong? Use the
 - **Your plan** in Build & Runes: your note, what you learned last time on the champion, session goal, focus and the
   lane outlook against the enemy picks at a glance
 - **Notes** per champion (and a general one), stored only on your PC and shown with the champion in champ select
-- Build and rune suggestions from [lolalytics.com](https://lolalytics.com) for your champion and role,
-  loaded once when you lock in; your own builds and runes always take priority (can be switched off)
-- Several rune pages to choose from (lolalytics plus Riot's recommended pages for your role): apply one
-  with a click or keep it as your own; the stats window opens on lock-in without stealing focus
+- Rune pages and Summoner Spells recommended by Riot for your champion and role, set when you lock in; your own
+  builds and runes always take priority
+- Several rune pages to choose from (Riot's recommended pages for your role): apply one
+  with a click or keep it as your own; the main window opens on lock-in without stealing focus
 
 <p>
   <img src="docs/stats-progress-en.png" alt="Progress: skill cards and skill radar chart against your own average" width="440">
@@ -137,6 +135,14 @@ often there is an allowed variant. Found something that is read wrong? Use the
 
 <img src="docs/stats-build-en.png" alt="Build and runes" width="720">
 
+## Styles
+
+Farmy's look follows League's own HUD: near black, thin gold lines, square corners, condensed caps. You can make your
+own style: "Style" in the sidebar (or Menu → Style) → "Open custom styles …" creates an example
+folder. Every folder there with a `theme.json` is a style (colours, a font file in the folder or an installed font –
+nothing from the web, a background image); add `main.css` or `overlay.css` for anything else. The active style reloads
+whenever you save. Details are in `LIESMICH.txt` in that folder.
+
 ## Hotkeys
 
 | Key | Action |
@@ -144,7 +150,7 @@ often there is an allowed variant. Found something that is read wrong? Use the
 | Ctrl+Shift+O | Toggle overlay |
 | Ctrl+Shift+E | Move panel (or drag the ⠿ handle) |
 | ⚙ in the panel header | Overlay settings (also in the tray menu) |
-| Ctrl+Shift+S | Stats window |
+| Ctrl+Shift+S | Main window |
 | Tab (in game) | Scoreboard badges – the key is only read, the game still receives it |
 
 ## Resolution, window mode and HUD scale
@@ -153,7 +159,7 @@ Screen regions are computed from League's game window and HUD scale (read from `
 Borderless, Windowed and a game resolution smaller than your screen all work. When another window is in
 front, the overlay hides and nothing is read.
 Tested at 3440×1440 with HUD scale 0 and 100, and with a 1920×1080 game window. If something is read
-wrong, open the stats window → *Live game* → **Check recognition** during a game: it shows exactly
+wrong, open the main window → *Live game* → **Check recognition** during a game: it shows exactly
 which screen areas are read and what was recognized. Please attach that screenshot plus your
 resolution and HUD scale to an issue.
 
@@ -165,22 +171,23 @@ resolution and HUD scale to an issue.
 | Ranks, history, runes, champ select | League client API (LCU), credentials from the client's `lockfile` |
 | Item, champion and rune data, icons | Data Dragon (Riot's public CDN), cached locally |
 | Exact CS, cooldowns, XP, scoreboard | Small screen regions, analysed locally (own digit recognition, Tesseract as fallback) |
-| Build and rune suggestions | [lolalytics.com](https://lolalytics.com) build page (Emerald+), one request per champion and role, cached for a day; fallback for runes: Riot's own recommended page from the client |
+| Build and rune suggestions | Riot's own recommended rune pages and summoner spells from the client. lolalytics.com (builds, tier list, matchups) is switched off until there is written permission (`src/data/sources.js`) |
 | ARAM Mayhem augment tiers | Data: [arammayhem.com](https://arammayhem.com/data/) ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)): pick rates and combo tags, no win rates (Riot does not allow augment win rates); English names from [CommunityDragon](https://communitydragon.org); both cached for a day |
 | Stat Anvil shards | Rated locally against your build (item tags from Data Dragon) |
-| Jungle routes | [Phylaris' Jungle Clear Compilation](https://docs.google.com/spreadsheets/d/1Gjk5UrtAbcqdYnRlx9KMDuHGxhKsEv50vhn02cN0y-c) (public Google Sheet, downloaded as CSV, cached for a day) |
+| Champion abilities | Texts from Data Dragon, values from [Meraki Analytics](https://github.com/meraki-analytics/lolstaticdata) (MIT), based on the [League of Legends Wiki](https://wiki.leagueoflegends.com/) ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)) |
+| Jungle routes | Standard full clear. Phylaris' Jungle Clear Compilation is switched off until there is written permission |
 | Updates | GitHub releases of this repository (`latest.yml`), checked at start and every 6 hours (installer version only) |
 
-No Riot API key is needed. Apart from Data Dragon, the lolalytics build page, the arammayhem.com and
-CommunityDragon data (only in ARAM Mayhem), the jungle route sheet, the update check on GitHub and a one-time
-download of the OCR language data, nothing leaves your PC. Only the champion and role are part of these requests.
+No Riot API key is needed. Apart from Data Dragon, Meraki, the arammayhem.com and CommunityDragon data (only in
+ARAM Mayhem), and the update check on GitHub, nothing leaves your PC.
+Fonts and OCR language data ship with the app. Only the champion and role are part of the data requests. No tracking, no telemetry.
 
 ## Building from source
 
 ```
 npm install
 npm start          # run in development
-npm run dist       # build installer + portable exe into dist/
+npm run dist       # release build: installer + portable exe into dist/
 ```
 
 Requires Node.js 20+. Settings live in `%APPDATA%\Farmy\config.json` (created from
@@ -190,31 +197,33 @@ To use the app straight from source without building, create a shortcut to
 `node_modules\electron\dist\electron.exe` with the project folder as argument. Changes to `renderer/`
 reload instantly; for everything else restart the app.
 
-| File | What it does |
+| Folder | What it does |
 |---|---|
-| `src/live.js` | Game data → panel values |
-| `src/layout.js` | Screen regions for any resolution and HUD scale |
-| `src/gamewindow.js` | Finds League's game window (position, size, in front or not) |
-| `src/minimap.js`, `src/jungle.js` | Minimap detection and jungle routes |
-| `src/updater.js` | Auto-update from GitHub releases |
-| `src/ocr.js`, `src/screengrab.js` | Screen reading (small screen regions via Windows GDI, no video stream) and scoreboard search |
-| `src/digits.js`, `src/digits.json` | Digit recognition; templates learned with `tools/digit-samples.js` |
-| `src/lcu.js` | League client access |
-| `renderer/overlay.*`, `renderer/stats.*` | Panel and stats window |
+| `main.js` | Main process entry: data folder, single instance, wires up the modules |
+| `src/main/` | Main process by task: windows, client and game polling, champ select, screen reading, scoreboard, tray, hotkeys, dev tools |
+| `src/app/` | The app itself: config, first-run setup, auto-update, notes, main window data, closing hung Riot processes |
+| `src/client/` | League client (LCU): login data, match history, archive, timelines, team scout, lobby skill |
+| `src/game/` | Running game (Live Client API): panel values, enemy team, game log, jungle clear, augments, stat anvil |
+| `src/screen/` | Screen reading: regions for any resolution and HUD scale, GDI crops, OCR, digit templates, minimap, game window, keys |
+| `src/data/` | Outside data: Data Dragon, lolalytics, Meraki, arammayhem, jungle routes, level 1–3 duel; `sources.js` (allowed sources) |
+| `renderer/overlay.html`, `renderer/overlay/` | In-game overlay: panel, jungle route, augments, scoreboard, settings |
+| `renderer/main-window.html`, `renderer/main-window/` | Main window: sidebar in groups (Game, Champions, You), one script per page (`core.js` first, `app.js` last), quick search `quick.js` (Ctrl+K) |
+| `renderer/i18n.js` | German/English texts, shared by main process and windows |
 | `tools/` | Calibration and render helpers |
 
 ## Third-party
 
 - [Electron](https://www.electronjs.org) – MIT
-- [tesseract.js](https://github.com/naptha/tesseract.js) – Apache-2.0
+- [tesseract.js](https://github.com/naptha/tesseract.js) and Tesseract language data – Apache-2.0
 - [koffi](https://koffi.dev/) – MIT
 - [electron-updater](https://www.electron.build/auto-update) – MIT
-- Fonts Cinzel and Source Sans 3 via Google Fonts – SIL Open Font License
+- Fonts Barlow and Barlow Condensed (app), Inter (website), shipped locally – SIL Open Font License 1.1
+
+All license texts: `legal/THIRD_PARTY_NOTICES.txt` (`node tools/notices.js`, runs with `npm run dist`).
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Use at your own risk: this project is not reviewed or approved by Riot
-Games, and Riot may change the interfaces it relies on at any time.
+Farmy is free and open source under the [MIT license](LICENSE). Riot may change the interfaces Farmy relies on at any time.
 
 ## Legal
 
