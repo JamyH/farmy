@@ -64,7 +64,7 @@ const PAGES = {
   progress: ['Fortschritt', 'Deine letzten Spiele gegen deinen eigenen Schnitt'],
   notes: ['Notizen', 'Eigene Notizen je Champion, nur auf deinem PC'],
   player: ['Spieler', 'Spieler deiner Region suchen: Rang, Champions und letzte Spiele'],
-  legal: ['Rechtliches', 'Lizenz, Datenschutz, Quellen und Hinweise zu Riot Games'],
+  legal: ['Rechtliches', 'Lizenz, Quellen und Hinweise zu Riot Games'],
 };
 const navOf = (tab) => Object.keys(VIEWS).find((k) => VIEWS[k].includes(tab)) || tab;
 const lastView = {}; // zuletzt offene Ansicht je Eintrag, ein Klick in der Seitenleiste kehrt dorthin zurück

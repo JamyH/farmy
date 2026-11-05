@@ -192,7 +192,7 @@ function init(dir) {
 // der zuletzt benutzte, also die Rolle aus der letzten Champ-Auswahl
 const usedAt = (e) => e.usedAt ?? e.fetchedAt;
 function cached(champId, mode = 'sr') {
-  if (!sources.allowed('lolalytics')) return null; // ohne Erlaubnis auch keine alten Daten aus dem Cache
+  if (!sources.allowed('lolalytics')) return null; // Quelle aus: auch keine alten Daten aus dem Cache
   const hits = Object.values(cache || {}).filter((e) => e.champId === champId && (e.mode || 'sr') === mode);
   return hits.sort((a, b) => usedAt(b) - usedAt(a))[0] || null;
 }

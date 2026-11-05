@@ -47,9 +47,8 @@ Branch `main`, Version 1.9.0. Website: `docs/` (GitHub Pages, jamyh.github.io/fa
 - Riot: nur lesen, was der Spieler sieht; kein Speicherlesen, keine Gegner-Timer, keine MMR, keine
   Augment-Siegquoten; in Ranked versteckte Namen bleiben versteckt (kein Lobby-Reveal, keine Chat-Endpunkte).
   Die Lobby-Skill-Einschätzung bleibt, wird im Riot-Portal offengelegt.
-- lolalytics + Phylaris-Jungle-Tabelle: in der gebauten App **aus**, bis schriftliche Erlaubnis in
-  `legal/erlaubnisse/` liegt; in Dev an (`src/data/sources.js`, hängt an `app.isPackaged`).
-- Jeder neue Netzabruf → `legal/DATENSCHUTZ.md`. Keine Schriften/Skripte/Bilder von Dritten laden.
+- lolalytics + Phylaris-Jungle-Tabelle: auch in der gebauten App an (Jamy 2026-11-05, `src/data/sources.js`).
+- Jeder neue Netzabruf → README, Abschnitt Datenquellen. Keine Schriften/Skripte/Bilder von Dritten laden.
 - Rose-Begleiter (`src/main/rose.js`): nur FarmyDevBuild, steuert ein installiertes Rose nur an, injiziert nichts.
 - Release-Build: `npm run dist` (Fuses, keine Verschleierung); kein `eval` im Fenster-Code.
 
@@ -64,9 +63,8 @@ Großer Umbau + neue Funktionen, siehe `CHANGELOG.md` „Unveröffentlicht“. K
   Spiel-Archiv (`userdata/archive.jsonl`).
 - Abo-Rückbau (2026-11-05): Farmy Plus, Lizenzprüfung, Kaufseite, Lizenzvertrag und Verschleierung sind entfernt,
   `LICENSE` wieder MIT. Der Stand davor liegt in `D:\AllYouNeed\Backup-vor-Open-Source-Rueckbau`.
-- Rechtliches: `legal/` (Impressum, Datenschutz mit Platzhaltern `[…]`), Seite „Rechtliches“,
-  Website-Seiten `docs/impressum|datenschutz` erzeugt von `tools/legal-pages.js`; `tools/notices.js`
-  erzeugt `legal/THIRD_PARTY_NOTICES.txt`.
+- Rechtliches: Seite „Rechtliches“ (Lizenz, Quellcode, Quellen, Riot-Hinweis). Impressum und Datenschutz gibt es nicht,
+  Farmy ist ein reines GitHub-Projekt (Jamy 2026-11-05); `tools/notices.js` erzeugt `legal/THIRD_PARTY_NOTICES.txt`.
 - Overlay-Aufnahme-Schutz (`setContentProtection`) bewusst aus, damit das Overlay im Discord-Stream sichtbar ist
   (Begründung als Kommentar in `src/main/windows.js`).
 - Skill „Schaden pro Leben“ (`dph` = `dmg / taken`, 2026-11-03) neben `dpd` in `progress.js` (Fortschritt, Letztes
@@ -100,9 +98,7 @@ Großer Umbau + neue Funktionen, siehe `CHANGELOG.md` „Unveröffentlicht“. K
    RuneForge sagt trotzdem „Working“). Mod liegt jetzt in `userdata\runeforge\deaktiviert`. Dafür `rose-guard.js`:
    erkennt die Schleife im Rose-Log, stoppt die Injection, nimmt den Mod aus Rose. Gegen das echte Log getestet,
    Bridge-Verbindung getestet; das eigentliche Stoppen und Verschieben im Ernstfall noch nicht.
-5. **Release-Voraussetzungen, die nur Jamy erledigen kann**: Platzhalter in `legal/*`, Riot-Produktregistrierung
-   (Skill-Score offenlegen), Erlaubnis-Anfragen lolalytics/Phylaris. Ohne lolalytics-Erlaubnis fehlen in der gebauten
-   App Builds, Tierliste und Matchups, die 1.9 noch hatte.
+5. **Nur Jamy**: Riot-Produktregistrierung (Skill-Score offenlegen).
 6. Das Repo `JamyH/farmy` bleibt öffentlich, der geplante Umzug in ein privates Repo entfällt.
 7. **Stream-Deck-Plugin** (2026-11-03, v0.2): `src/main/deck.js` (Brücke) + `streamdeck/com.jamyh.farmy.sdPlugin/`, per
    Verbindung in `%APPDATA%\Elgato\StreamDeck\Plugins` eingehängt. Aktionen Farmy-Wert (15 Werte), Farmy-Knopf

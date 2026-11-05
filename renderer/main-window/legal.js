@@ -1,4 +1,4 @@
-// --- Rechtliches: Version, Lizenz/Quellcode/Datenschutz/Impressum, Riot-Hinweis, Quellen mit Lizenz, Fremd-Software.
+// --- Rechtliches: Version, Lizenz/Quellcode, Riot-Hinweis, Quellen mit Lizenz, Fremd-Software.
 // Erreichbar über Menü → „Über Farmy und Rechtliches“ und den Link unten im Fenster (src/main/legal.js) ---
 // Riots Pflicht-Hinweis wörtlich auf Englisch (developer.riotgames.com/policies/general, „Legal“)
 const RIOT_NOTICE = "Farmy isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone " +
@@ -13,7 +13,7 @@ async function loadLegal() {
     <div class="card legal-card">
       <h2>Farmy ${esc(i.version)}</h2>
       <p>${t('Kostenlose Open-Source-Software unter der MIT-Lizenz.')}</p>
-      <div class="legal-links">${link(i.docs.license, t('Lizenz'))}${link(i.docs.source, t('Quellcode'))}${link(i.docs.privacy, t('Datenschutz'))}${link(i.docs.imprint, t('Impressum'))}</div>
+      <div class="legal-links">${link(i.docs.license, t('Lizenz'))}${link(i.docs.source, t('Quellcode'))}</div>
       <p class="hint">${t('Farmy speichert deine Daten nur auf deinem PC. Kein Tracking, keine Werbung, keine Telemetrie.')}</p>
     </div>
     <div class="card legal-card">
@@ -25,7 +25,7 @@ async function loadLegal() {
       <h2>${t('Datenquellen')}</h2>
       <table class="legal-table">
         <tr><th>${t('Quelle')}</th><th>${t('Wofür')}</th><th>${t('Lizenz')}</th></tr>
-        ${i.sources.map((s) => `<tr><td>${link(s.url, s.name)}${s.devOnly ? ' <span class="chip">nur FarmyDevBuild</span>' : ''}</td><td>${esc(t(s.use))}</td>` +
+        ${i.sources.map((s) => `<tr><td>${link(s.url, s.name)}</td><td>${esc(t(s.use))}</td>` +
           `<td>${s.licenseUrl ? link(s.licenseUrl, s.license) : esc(s.license || '–')}</td></tr>`).join('')}
       </table>
     </div>

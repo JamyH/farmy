@@ -1,11 +1,5 @@
-// Fremde Datenquellen an einer Stelle: ob Farmy sie nutzen darf (allowed) und wie sie zu nennen sind (Quellenangabe
-// und Lizenz für „Rechtliches“ im Hauptfenster). Auch als kostenloses Open-Source-Projekt gilt: eine Quelle ohne offene
-// Lizenz oder schriftliche Erlaubnis bleibt aus (in der EU ist eine Statistik-Datenbank geschützt, § 87b UrhG). Liegt die
-// Erlaubnis vor, hier allowed: true setzen und den Nachweis in legal/erlaubnisse/ ablegen.
-// dev: true = in der Entwicklerversion (FarmyDevBuild, aus dem Quellcode) trotzdem an, zum Weiterentwickeln. Das
-// hängt an app.isPackaged: die gebaute App kann eine solche Quelle nie einschalten, auch nicht per config
-const { app } = require('electron');
-
+// Fremde Datenquellen an einer Stelle: ob Farmy sie nutzt (allowed) und wie sie zu nennen sind (Quellenangabe und
+// Lizenz für „Rechtliches“ im Hauptfenster). allowed: false schaltet eine Quelle überall ab.
 const SOURCES = {
   ddragon: {
     allowed: true, name: 'Data Dragon (Riot Games)', url: 'https://developer.riotgames.com/docs/lol#data-dragon',
@@ -29,20 +23,20 @@ const SOURCES = {
     allowed: true, name: 'CommunityDragon', url: 'https://communitydragon.org',
     use: 'Englische Augment-Namen', license: 'Riot Games Developer Policies',
   },
-  // keine Lizenz und keine Nutzungsbedingungen veröffentlicht: erst nach schriftlicher Erlaubnis
+  // keine Lizenz veröffentlicht; genutzt wie bis 1.9 (Jamys Entscheidung vom 2026-11-05)
   lolalytics: {
-    allowed: false, dev: true, name: 'lolalytics.com', url: 'https://lolalytics.com',
+    allowed: true, name: 'lolalytics.com', url: 'https://lolalytics.com',
     use: 'Builds, Runen, Summoner, Skill-Reihenfolge, Tierliste, Matchups', license: null,
   },
-  // „Jungle Clear Compilation“ von Phylaris (Google-Tabelle): ohne Erlaubnis nur die Standard-Full-Clear
+  // „Jungle Clear Compilation“ von Phylaris (öffentliche Google-Tabelle), genutzt wie bis 1.9
   jungleSheet: {
-    allowed: false, dev: true, name: 'Jungle Clear Compilation (Phylaris)',
+    allowed: true, name: 'Jungle Clear Compilation (Phylaris)',
     url: 'https://docs.google.com/spreadsheets/d/1Gjk5UrtAbcqdYnRlx9KMDuHGxhKsEv50vhn02cN0y-c',
     use: 'Jungle-Routen je Champion', license: null,
   },
 };
 
-const allowed = (id) => !!(SOURCES[id] && (SOURCES[id].allowed || (SOURCES[id].dev && !app.isPackaged)));
+const allowed = (id) => !!(SOURCES[id] && SOURCES[id].allowed);
 
 // Fehler für abgeschaltete Quellen: off = true, die Oberfläche zeigt dann einen ruhigen Hinweis statt eines Fehlers
 class SourceOff extends Error {
@@ -57,6 +51,6 @@ function need(id) {
 
 // was die Oberfläche braucht: an/aus je Quelle und die Liste für „Rechtliches“
 const flags = () => Object.fromEntries(Object.keys(SOURCES).map((id) => [id, allowed(id)]));
-const list = () => Object.entries(SOURCES).map(([id, s]) => ({ id, ...s, allowed: allowed(id), devOnly: !s.allowed && allowed(id) }));
+const list = () => Object.entries(SOURCES).map(([id, s]) => ({ id, ...s, allowed: allowed(id) }));
 
 module.exports = { allowed, need, flags, list, SourceOff };

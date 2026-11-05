@@ -71,7 +71,7 @@ const seconds = (t) => {
 };
 
 async function loadRows() {
-  if (!sources.allowed('jungleSheet')) return []; // ohne Erlaubnis nur die Standard-Full-Clear
+  if (!sources.allowed('jungleSheet')) return []; // Quelle aus: nur die Standard-Full-Clear
   if (cache.rows && Date.now() - cache.fetchedAt < CACHE_MS) return cache.rows;
   try {
     const tabs = await Promise.all(TABS.map(async (gid) => {

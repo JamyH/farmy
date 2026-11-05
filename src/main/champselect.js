@@ -16,7 +16,7 @@ const { t } = require('../../renderer/i18n');
 const { state, mapId, refreshMenu } = require('./state');
 const { openMainWindow, toMainWindow } = require('./windows');
 
-// lolalytics-Vorschläge: nur mit Erlaubnis (data/sources.js), dann an, solange nicht ausdrücklich abgeschaltet
+// lolalytics-Vorschläge: an, solange die Quelle (data/sources.js) und die Einstellung nicht abgeschaltet sind
 const suggestionsOn = () => sources.allowed('lolalytics') && (!config.lolalytics || config.lolalytics.enabled !== false);
 const ownBuild = (champId) => ((config.builds || {})[champId] || []).length > 0;
 // Spar-Ziel im Spiel: eigener Build, sonst der zuletzt geladene Vorschlag

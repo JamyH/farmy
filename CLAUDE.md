@@ -15,8 +15,8 @@
 | `renderer/overlay.html`, `overlay.css` + `renderer/overlay/` | Overlay im Spiel: `core` (Helfer), `overlays` (Jungle-Route, Augments, Scoreboard), `panel`, `mouse`, `settings` (⚙) |
 | `renderer/main-window.html` + `renderer/main-window/` | Hauptfenster, ein Skript je Reiter |
 | `renderer/i18n.js` | Texte Deutsch → Englisch, von Hauptprozess und Fenstern genutzt |
-| `tools/` | Kalibrier- und Render-Helfer (`npx electron tools/…`); `notices.js` sammelt die Lizenztexte der Fremd-Software; `legal-pages.js` erzeugt die Rechtsseiten der Website (`docs/`) |
-| `legal/` | Datenschutz, Impressum (Entwürfe, Quelle der Website-Seiten), `THIRD_PARTY_NOTICES.txt` (erzeugt) |
+| `tools/` | Kalibrier- und Render-Helfer (`npx electron tools/…`); `notices.js` sammelt die Lizenztexte der Fremd-Software |
+| `legal/` | `THIRD_PARTY_NOTICES.txt` (erzeugt von `tools/notices.js`) |
 | `assets/tessdata/`, `renderer/fonts/` | Mitgelieferte OCR-Sprachdaten und Schriften: nichts davon wird aus dem Netz geladen |
 | `streamdeck/com.jamyh.farmy.sdPlugin/` | Stream-Deck-Plugin (ohne Fremdpakete, Node 24), Aktionen Farmy-Wert / Farmy-Knopf / Overlay-Regler: `bin/plugin.js` (Verbindung, Abfrage jede Sekunde, Knöpfe), `bin/stats.js` (Werte), `bin/buttons.js` (Knöpfe), `bin/look.js` (Farben, Texte, Tastenbild); die drei auch von den Einstellungsfeldern `ui/*.html` + `ui/pi.js` genutzt. `profiles/Farmy.streamDeckProfile` erzeugt `streamdeck/make-profile.js` (danach Plugin-Version hochzählen). Nicht Teil des Farmy-Builds. Zum Testen per Verbindung (`mklink /J`) in `%APPDATA%\Elgato\StreamDeck\Plugins`, danach Stream Deck neu starten. Antwort-Format geändert → `VERSION` in `deck.js` und `plugin.js` gemeinsam hochzählen |
 
@@ -82,12 +82,10 @@ stehen in `VIEWS` (app.js) und als Umschalter im Seitenkopf. Neue Seite: eigene 
 Farmy ist kostenlos und Open Source (MIT), ohne Abo und ohne Bezahlfunktionen (Jamys Entscheidung vom 2026-11-05).
 Der Quellcode bleibt öffentlich und lesbar. Daraus folgt:
 
-- **Neue Datenquelle** nur mit offener Lizenz oder schriftlicher Erlaubnis. Eintrag in `src/data/sources.js` (mit
-  Lizenz, erscheint unter „Rechtliches“), Abruf nur über `sources.need()`. lolalytics und die Jungle-Tabelle bleiben
-  aus, bis die Erlaubnis in `legal/erlaubnisse/` liegt. In der Entwicklerversion sind sie an (`dev: true`, hängt an
-  `app.isPackaged`), in der gebauten App nie.
-- **Nichts aus dem Netz, was nicht nötig ist**: keine Schriften, Skripte oder Bilder von Dritten (DSGVO). Jeder neue
-  Abruf gehört in die Datenschutzerklärung (`legal/DATENSCHUTZ.md`).
+- **Neue Datenquelle**: Eintrag in `src/data/sources.js` (mit Lizenz, erscheint unter „Rechtliches“), Abruf nur über
+  `sources.need()`. lolalytics und die Jungle-Tabelle sind an (Jamys Entscheidung vom 2026-11-05).
+- **Nichts aus dem Netz, was nicht nötig ist**: keine Schriften, Skripte oder Bilder von Dritten. Jeder neue Abruf
+  gehört in die README (Abschnitt zu den Datenquellen).
 - **Riot-Regeln** (developer.riotgames.com/policies/general): Produkt registriert. Neue Funktionen vor dem Release im
   Developer Portal melden.
 - **Keine Injection, kein Spiel-Verändern.** Der Rose-Begleiter (`src/main/rose.js`) steuert nur ein installiertes Rose

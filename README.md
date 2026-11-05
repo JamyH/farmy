@@ -4,7 +4,7 @@
 
 *Formerly known as „All You Need“.*
 
-**Version 1.9** · [Website](https://jamyh.github.io/farmy/) · [Changelog](CHANGELOG.md) · [Download](https://github.com/JamyH/farmy/releases/latest) · [💡 Share an idea](https://github.com/JamyH/farmy/issues/new?template=idea.yml)
+**Version 2.0** · [Website](https://jamyh.github.io/farmy/) · [Changelog](CHANGELOG.md) · [Download](https://github.com/JamyH/farmy/releases/latest) · [💡 Share an idea](https://github.com/JamyH/farmy/issues/new?template=idea.yml)
 
 A free, small and clean overlay for League of Legends on Windows. It shows what matters in a fight – exact CS,
 your summoner cooldowns, XP to the next level, mana for your combo, the gold you still need – without
@@ -171,15 +171,15 @@ resolution and HUD scale to an issue.
 | Ranks, history, runes, champ select | League client API (LCU), credentials from the client's `lockfile` |
 | Item, champion and rune data, icons | Data Dragon (Riot's public CDN), cached locally |
 | Exact CS, cooldowns, XP, scoreboard | Small screen regions, analysed locally (own digit recognition, Tesseract as fallback) |
-| Build and rune suggestions | Riot's own recommended rune pages and summoner spells from the client. lolalytics.com (builds, tier list, matchups) is switched off until there is written permission (`src/data/sources.js`) |
+| Build and rune suggestions | [lolalytics.com](https://lolalytics.com) (Emerald+): builds, tier list and matchups, one request per champion and role, cached for a day; fallback for runes and summoner spells: Riot's own recommendation from the client |
 | ARAM Mayhem augment tiers | Data: [arammayhem.com](https://arammayhem.com/data/) ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)): pick rates and combo tags, no win rates (Riot does not allow augment win rates); English names from [CommunityDragon](https://communitydragon.org); both cached for a day |
 | Stat Anvil shards | Rated locally against your build (item tags from Data Dragon) |
 | Champion abilities | Texts from Data Dragon, values from [Meraki Analytics](https://github.com/meraki-analytics/lolstaticdata) (MIT), based on the [League of Legends Wiki](https://wiki.leagueoflegends.com/) ([CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)) |
-| Jungle routes | Standard full clear. Phylaris' Jungle Clear Compilation is switched off until there is written permission |
+| Jungle routes | [Phylaris' Jungle Clear Compilation](https://docs.google.com/spreadsheets/d/1Gjk5UrtAbcqdYnRlx9KMDuHGxhKsEv50vhn02cN0y-c) (public Google Sheet, downloaded as CSV, cached for a day) |
 | Updates | GitHub releases of this repository (`latest.yml`), checked at start and every 6 hours (installer version only) |
 
-No Riot API key is needed. Apart from Data Dragon, Meraki, the arammayhem.com and CommunityDragon data (only in
-ARAM Mayhem), and the update check on GitHub, nothing leaves your PC.
+No Riot API key is needed. Apart from Data Dragon, Meraki, lolalytics.com, the arammayhem.com and CommunityDragon data
+(only in ARAM Mayhem), the jungle route sheet and the update check on GitHub, nothing leaves your PC.
 Fonts and OCR language data ship with the app. Only the champion and role are part of the data requests. No tracking, no telemetry.
 
 ## Building from source

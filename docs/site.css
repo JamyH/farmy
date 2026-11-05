@@ -91,8 +91,3 @@ footer nav a { color: var(--muted); }
   .feat:nth-of-type(even) > div { order: 0; }
   header nav { display: none; }
 }
-
-/* Rechtsseiten (tools/legal-pages.js) */
-.legal table { border-collapse: collapse; margin: 12px 0; }
-.legal th, .legal td { padding: 6px 10px; border-bottom: 1px solid rgba(255,255,255,.1); text-align: left; vertical-align: top; }
-.legal code { font-size: .92em; }

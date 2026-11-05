@@ -1,6 +1,6 @@
 # Changelog
 
-## Unveröffentlicht
+## 2.0.0 – 2026-11-05
 
 Neu
 - Stream Deck: eigenes Farmy-Plugin mit drei Aktionen
@@ -72,11 +72,8 @@ Geändert
   gesuchte). „Zurück“ wie im Browser (Knopf oben, Maustaste „Zurück“, Alt+←), z. B. nach „In Build & Runen öffnen“
   wieder zum Champion
 - Farmy bleibt kostenlos und Open Source (MIT). Neue Seite „Rechtliches“ (Menü → „Über Farmy und Rechtliches“, Link
-  unten im Hauptfenster): Lizenz, Quellcode, Datenschutz, Impressum, Riot-Hinweis, Datenquellen mit Lizenz und die
+  unten im Hauptfenster): Lizenz, Quellcode, Riot-Hinweis, Datenquellen mit Lizenz und die
   Lizenztexte aller mitgelieferten Fremd-Software
-- Builds, Runen-Vorschläge, Tierliste und Matchup-Statistik von lolalytics.com sowie die Jungle-Routen-Tabelle sind
-  abgeschaltet, bis eine Nutzungserlaubnis vorliegt. Runen und Summoner kommen von Riots eigener Empfehlung im Client
-  (auch im Champion-Wiki), Jungle-Route ist die Standard-Full-Clear
 - Datenschutz: Schriften und die Sprachdaten der Texterkennung liegen jetzt bei, nichts davon wird mehr aus dem
   Internet geladen (bisher Google Fonts und jsDelivr). Eigene Stile nehmen eine Schrift-Datei aus ihrem Ordner oder
   eine installierte Schrift
