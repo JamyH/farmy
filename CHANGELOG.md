@@ -1,5 +1,14 @@
 # Changelog
 
+## Unveröffentlicht
+
+Geändert
+- Releases werden auf GitHub gebaut (GitHub Actions), nachvollziehbar aus dem Quellcode
+- Updates laden die ganze Datei statt nur der Änderungen, weil Signieren die Datei nach dem Bauen ändert
+
+Neu
+- Code signing policy auf der Website, Vorbereitung für die kostenlose Signierung über die SignPath Foundation
+
 ## 2.0.0 – 2026-11-05
 
 Neu

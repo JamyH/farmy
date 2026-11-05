@@ -30,6 +30,7 @@ die, and – for junglers – a full jungle analysis, all from your own match hi
    This is a reputation warning for new, unsigned files, not a virus detection – Microsoft Defender finds
    nothing in it. You can compare the file's SHA-256 checksum with the one listed in the release notes
    (PowerShell: `Get-FileHash .\Farmy-Setup-x.y.z.exe`), and the full source is in this repository.
+   See the [code signing policy](https://jamyh.github.io/farmy/code-signing/).
 3. Set League to **Borderless** or **Windowed** (an overlay cannot sit on top of exclusive fullscreen).
 
 That's it. The League folder, your resolution and your HUD scale are detected automatically.
@@ -190,6 +191,8 @@ npm start          # run in development
 npm run dist       # release build: installer + portable exe into dist/
 ```
 
+Releases are built by [GitHub Actions](.github/workflows/build.yml) on GitHub-hosted runners.
+
 Requires Node.js 20+. Settings live in `%APPDATA%\Farmy\config.json` (created from
 `config.example.json` on first start), shared by `npm start` and the installed app.
 
@@ -220,6 +223,13 @@ reload instantly; for everything else restart the app.
 - Fonts Barlow and Barlow Condensed (app), Inter (website), shipped locally – SIL Open Font License 1.1
 
 All license texts: `legal/THIRD_PARTY_NOTICES.txt` (`node tools/notices.js`, runs with `npm run dist`).
+
+## Code signing policy
+
+Free code signing provided by [SignPath.io](https://about.signpath.io), certificate by
+[SignPath Foundation](https://signpath.org). Farmy is applying for this program: until a release says otherwise in
+its notes, it is not signed yet. Team roles, what gets signed and privacy are in the
+[code signing policy](https://jamyh.github.io/farmy/code-signing/).
 
 ## License
 

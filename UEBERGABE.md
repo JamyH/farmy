@@ -50,6 +50,13 @@ Branch `main`, Version 2.0.0 (veröffentlicht 2026-11-05). Website: `docs/` (Git
 - Jeder neue Netzabruf → README, Abschnitt Datenquellen. Keine Schriften/Skripte/Bilder von Dritten laden.
 - Rose-Begleiter (`src/main/rose.js`): nur FarmyDevBuild, steuert ein installiertes Rose nur an, injiziert nichts.
 - Release-Build: `npm run dist` (Fuses, keine Verschleierung); kein `eval` im Fenster-Code.
+- Release-Ablauf: Version + `CHANGELOG.md`, commit, Tag `vX.Y.Z` pushen. `.github/workflows/build.yml` baut und legt einen
+  Entwurf an (`dist/release-draft.md`, „What's new“ noch ausfüllen), veröffentlicht wird von Hand. Keine Differenz-Updates
+  mehr (`differentialPackage: false`), weil Signieren die Datei nach dem Bauen ändert.
+- SignPath: Bewerbung offen (Stand 2026-11-05). Nach der Zusage: Repo-Variable `SIGNPATH_ORGANIZATION_ID`, Secret
+  `SIGNPATH_API_TOKEN`, `.signpath/artifact-configuration.xml` in SignPath eintragen, Slugs in `build.yml` prüfen, Status-Hinweise
+  in `docs/code-signing/index.html`, README und Website-FAQ anpassen. Signiert werden nur Setup und portable Exe, die
+  `Farmy.exe` darin bleibt unsigniert (sonst zwei Freigaben je Release).
 
 ## Aktueller Stand (v2.0.0, alles auf `main`)
 

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code signing policy | Farmy LoL</title>
+  <meta name="description" content="How Farmy releases are built, who approves them and what data the app transfers.">
+  <link rel="canonical" href="https://jamyh.github.io/farmy/code-signing/">
+  <link rel="icon" type="image/png" href="../icon.png">
+  <link rel="stylesheet" href="../fonts/fonts.css">
+  <link rel="stylesheet" href="../site.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="home" href="../"><img src="../icon.png" alt="" width="36" height="36"><b>Farmy</b></a>
+      <nav>
+        <a href="../#features">Features</a>
+        <a href="../are-lol-overlays-allowed/">Is it safe?</a>
+        <a href="https://github.com/JamyH/farmy">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <div class="crumbs"><a href="../">Farmy</a> › Code signing policy</div>
+        <h1>Code signing policy</h1>
+        <p class="lead">Free code signing provided by <a href="https://about.signpath.io">SignPath.io</a>, certificate by
+          <a href="https://signpath.org">SignPath Foundation</a>.</p>
+        <div class="note"><p><b>Status:</b> Farmy is applying for this program. Until a release says otherwise in its
+          notes, it is not signed yet and Windows SmartScreen may warn.</p></div>
+
+        <h2>What gets signed</h2>
+        <p>Only the two files of a release: <code>Farmy-Setup-x.y.z.exe</code> and <code>Farmy-x.y.z-portable.exe</code>.
+          Both are built from the <a href="https://github.com/JamyH/farmy">public source code</a> by a
+          <a href="https://github.com/JamyH/farmy/blob/main/.github/workflows/build.yml">GitHub Actions workflow</a> on
+          GitHub-hosted runners. Upstream components inside them, such as Electron, are not signed by this project.</p>
+
+        <h2>Team roles</h2>
+        <table>
+          <tr><th>Role</th><th>Members</th></tr>
+          <tr><td>Committers and reviewers</td><td><a href="https://github.com/JamyH">Jamy Haas</a></td></tr>
+          <tr><td>Approvers</td><td><a href="https://github.com/JamyH">Jamy Haas</a></td></tr>
+        </table>
+        <p>Farmy is a one-person project. Every release is approved by hand before it is signed.</p>
+
+        <h2>Privacy</h2>
+        <p>Farmy has no account, no tracking and no telemetry. Your game data, Riot ID and match history stay on your PC.
+          The app reads League's local interfaces and small regions of your screen, and it loads public game data from the
+          services below. Where a request needs one, it contains only the champion and role. Like every web request, it
+          also shows your IP address to that service.</p>
+        <table>
+          <tr><th>Service</th><th>Used for</th><th>Privacy policy</th></tr>
+          <tr><td>Riot Games (Data Dragon)</td><td>Item, champion and rune data, icons</td>
+            <td><a href="https://www.riotgames.com/en/privacy-notice">Riot Privacy Notice</a></td></tr>
+          <tr><td>Meraki Analytics</td><td>Champion ability values</td>
+            <td><a href="https://github.com/meraki-analytics/lolstaticdata">Project page</a></td></tr>
+          <tr><td>lolalytics.com</td><td>Builds, tier list and matchups</td>
+            <td><a href="https://lolalytics.com">Website</a></td></tr>
+          <tr><td>arammayhem.com, CommunityDragon</td><td>Augment data, only in ARAM Mayhem</td>
+            <td><a href="https://arammayhem.com">arammayhem.com</a>, <a href="https://communitydragon.org">CommunityDragon</a></td></tr>
+          <tr><td>Google</td><td>Jungle route sheet, downloaded as CSV</td>
+            <td><a href="https://policies.google.com/privacy">Google Privacy Policy</a></td></tr>
+          <tr><td>GitHub</td><td>Update check, installer version only</td>
+            <td><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a></td></tr>
+        </table>
+      </article>
+    </main>
+
+    <footer>
+      <nav>
+        <a href="../">Home</a>
+        <a href="../lol-cs-tracker/">LoL CS tracker</a>
+        <a href="../summoner-spell-timer/">Summoner spell timer</a>
+        <a href="../are-lol-overlays-allowed/">Are LoL overlays allowed?</a>
+        <a href="../de/" hreflang="de" lang="de">Deutsch</a>
+        <a href="https://github.com/JamyH/farmy/blob/main/LICENSE">Lizenz (MIT)</a>
+      </nav>
+      Farmy isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone
+      officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties
+      are trademarks or registered trademarks of Riot Games, Inc.
+    </footer>
+  </div>
+  <script src="../site.js"></script>
+</body>
+</html>

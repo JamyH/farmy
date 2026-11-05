@@ -1,0 +1,114 @@
+# Baut Farmy nachvollziehbar aus dem Quellcode, auf GitHub-eigenen Runnern.
+# Von Hand starten (Actions → Build → Run workflow): baut nur, die Dateien liegen dann am Lauf.
+# Tag vX.Y.Z pushen: baut, signiert über SignPath und legt einen Release-Entwurf an. Veröffentlicht wird von Hand.
+# Signiert wird erst, wenn die Repo-Variable SIGNPATH_ORGANIZATION_ID gesetzt ist, vorher bleibt der Build unsigniert.
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 90 # enthält das Warten auf die Freigabe in SignPath
+    permissions:
+      contents: read
+      actions: read
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Version prüfen
+        id: version
+        shell: bash
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_REF_TYPE" = tag ] && [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME passt nicht zu package.json ($version)"
+            exit 1
+          fi
+
+      - run: npm ci
+
+      - run: npm run dist
+
+      - name: Unsignierte Dateien hochladen
+        id: unsigned
+        uses: actions/upload-artifact@v7
+        with:
+          name: farmy-unsigned
+          if-no-files-found: error
+          path: |
+            dist/Farmy-Setup-${{ steps.version.outputs.version }}.exe
+            dist/Farmy-${{ steps.version.outputs.version }}-portable.exe
+
+      # Jedes Release braucht eine Freigabe von Hand in SignPath, deshalb die lange Wartezeit.
+      - name: Signieren
+        id: sign
+        if: github.ref_type == 'tag' && vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: farmy
+          signing-policy-slug: release-signing
+          github-artifact-id: ${{ steps.unsigned.outputs.artifact-id }}
+          wait-for-completion: true
+          wait-for-completion-timeout-in-seconds: 3600
+          output-artifact-directory: dist/signed
+          parameters: |
+            version: ${{ toJSON(steps.version.outputs.version) }}
+
+      - name: Signierte Dateien übernehmen
+        if: steps.sign.outcome == 'success'
+        shell: bash
+        run: cp dist/signed/*.exe dist/
+
+      # Signieren ändert die Datei: latest.yml muss danach die neuen Prüfsummen tragen, sonst scheitert das Auto-Update.
+      - name: latest.yml und Release-Text
+        run: node tools/release-files.js ${{ steps.sign.outcome == 'success' && '--signed' || '' }}
+
+      - name: Fertige Dateien hochladen
+        uses: actions/upload-artifact@v7
+        with:
+          name: farmy
+          if-no-files-found: error
+          path: |
+            dist/Farmy-Setup-${{ steps.version.outputs.version }}.exe
+            dist/Farmy-${{ steps.version.outputs.version }}-portable.exe
+            dist/latest.yml
+            dist/release-draft.md
+
+  # Eigener Job, damit npm-Pakete im Build nie ein Token mit Schreibrecht sehen.
+  release:
+    needs: build
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: farmy
+          path: dist
+
+      - name: Release-Entwurf anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" dist/*.exe dist/latest.yml
+          --repo "$GITHUB_REPOSITORY" --draft --title "Farmy $GITHUB_REF_NAME" --notes-file dist/release-draft.md

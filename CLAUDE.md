@@ -85,12 +85,14 @@ Der Quellcode bleibt öffentlich und lesbar. Daraus folgt:
 - **Neue Datenquelle**: Eintrag in `src/data/sources.js` (mit Lizenz, erscheint unter „Rechtliches“), Abruf nur über
   `sources.need()`. lolalytics und die Jungle-Tabelle sind an (Jamys Entscheidung vom 2026-11-05).
 - **Nichts aus dem Netz, was nicht nötig ist**: keine Schriften, Skripte oder Bilder von Dritten. Jeder neue Abruf
-  gehört in die README (Abschnitt zu den Datenquellen).
+  gehört in die README (Abschnitt zu den Datenquellen) und in `docs/code-signing/index.html` (Privacy).
 - **Riot-Regeln** (developer.riotgames.com/policies/general): Produkt registriert. Neue Funktionen vor dem Release im
   Developer Portal melden.
 - **Keine Injection, kein Spiel-Verändern.** Der Rose-Begleiter (`src/main/rose.js`) steuert nur ein installiertes Rose
   an und läuft ausschließlich in FarmyDevBuild (`!app.isPackaged`). In der gebauten App nie – Skin-Injection würde die
   Riot-Freigabe kosten. Farmy selbst injiziert nichts und bündelt weder Rose noch Skins.
 - **Neue Pakete** nur mit freizügiger Lizenz (MIT, BSD, ISC, Apache); vor dem Release `node tools/notices.js`.
-- **Release-Build** mit `npm run dist` (sammelt die Lizenztexte, baut Installer und portable Exe). Der Code wird nicht
+- **Release-Build** auf GitHub: Tag `vX.Y.Z` pushen, `.github/workflows/build.yml` baut (`npm run dist`), signiert über
+  SignPath und legt einen Release-Entwurf an; `tools/release-files.js` zieht `latest.yml` nach dem Signieren nach.
+  Keine lokal gebauten Dateien mehr hochladen (SignPath verlangt den Build aus dem Quellcode). Der Code wird nicht
   verschleiert. Die gebaute App hat Electron Fuses (kein `ELECTRON_RUN_AS_NODE`, kein `--inspect`, Archiv-Prüfung).

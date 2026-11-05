@@ -68,7 +68,8 @@
       "shortcutName": "Farmy",
       "runAfterFinish": true,
       "uninstallDisplayName": "Farmy",
-      "artifactName": "Farmy-Setup-${version}.exe"
+      "artifactName": "Farmy-Setup-${version}.exe",
+      "differentialPackage": false
     },
     "portable": {
       "artifactName": "Farmy-${version}-portable.exe"
