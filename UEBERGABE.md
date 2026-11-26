@@ -7,7 +7,7 @@ Für den nächsten Claude, der hier weiter codet. Erst diese Datei, dann `CLAUDE
 League-of-Legends-Begleiter (Electron, Windows): Overlay im Spiel (OCR des HUD, Live-API Port 2999) und Hauptfenster
 mit Wiki/Champions, Build & Runen, Live-Spiel, Verlauf, Fortschritt, Notizen, Spielersuche. Daten aus dem lokalen
 League-Client (LCU, `src/client/lcu.js`), kein Riot-API-Key. Repo: `D:\lol-overlay`, Remote `github.com/JamyH/farmy`,
-Branch `main`, Version 2.0.0 (veröffentlicht 2026-11-05). Website: `docs/` (GitHub Pages, jamyh.github.io/farmy).
+Branch `main`, Version 2.0.1 (veröffentlicht 2026-11-26). Website: `docs/` (GitHub Pages, jamyh.github.io/farmy).
 
 ## Arbeitsweise mit Jamy
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unveröffentlicht
+## 2.0.1 – 2026-11-26
 
 Geändert
 - Releases werden auf GitHub gebaut (GitHub Actions), nachvollziehbar aus dem Quellcode
