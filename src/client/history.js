@@ -136,7 +136,32 @@ function bestChamps(lane, n = 3) {
 // Spiele seit einem Zeitpunkt (ms), älteste zuerst: für die Session (heute)
 const since = (at) => Object.values(games).filter((g) => g.at >= at).sort((a, b) => a.at - b.at);
 
+// Pause zwischen zwei Spielen, bis zu der sie noch als eine Session zählen
+const SESSION_GAP = 2 * 3600e3;
+const ended = (g) => g.at + (g.dur || 0) * 1000;
+// Niederlagenserie gerade jetzt: Niederlagen am Stück am Ende des Verlaufs, ohne längere Pause dazwischen und mit
+// dem letzten Spiel vor höchstens 2 Stunden. Dazu deine Siegquote in Spielen direkt nach 2 Niederlagen (alle Kluft-
+// und ARAM-Spiele, derselbe Maßstab wie „Nach Niederlagen“ im Fortschritt): { streak, lastAt, after: { games, wins } }
+function lossStreak(now = Date.now()) {
+  const list = Object.values(games).filter((g) => g.dur >= 300).sort((a, b) => a.at - b.at);
+  let streak = 0;
+  for (let i = list.length - 1; i >= 0 && !list[i].win; i--) {
+    if (i < list.length - 1 && list[i + 1].at - ended(list[i]) > SESSION_GAP) break;
+    streak++;
+  }
+  const last = list[list.length - 1];
+  if (!last || now - ended(last) > SESSION_GAP) streak = 0;
+  const after = { games: 0, wins: 0 };
+  for (let i = 2; i < list.length; i++) {
+    const [a, b, g] = [list[i - 2], list[i - 1], list[i]];
+    if (a.win || b.win || b.at - ended(a) > SESSION_GAP || g.at - ended(b) > SESSION_GAP) continue;
+    after.games++;
+    if (g.win) after.wins++;
+  }
+  return { streak, lastAt: last ? last.at : 0, after };
+}
+
 // Alle gemerkten Spiele, älteste zuerst (Reiter „Fortschritt“)
 const all = () => Object.entries(games).map(([id, g]) => ({ id, ...g })).sort((a, b) => a.at - b.at);
 
-module.exports = { init, add, backfill, topItems, csPerMin, bestChamps, since, all, laneOf };
+module.exports = { init, add, backfill, topItems, csPerMin, bestChamps, since, all, laneOf, lossStreak };

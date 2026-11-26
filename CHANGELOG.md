@@ -20,6 +20,14 @@ Neu
   sicher farmen?“ nach dem zweiten frühen Tod am selben Gegner, „Kontrollwarde mitnehmen“ am Shop (tot oder gerade
   etwas gekauft) ohne Kontrollwarde im Inventar, und vor Minute 9, wenn deine Jungler-Tode meist in Minute 9–15 fallen,
   eine Erinnerung an Sicht im Fluss. Grundlage sind nur deine eigenen Tode, dein Inventar und deine Statistik
+- „Dein Plan“ in „Build & Runen“: deine eigene Bilanz mit dem gewählten Champion (Siege–Niederlagen, Ø Tode) und gegen
+  die gegnerischen Picks, als Lane-Gegner mit Gold-Differenz bei 15 min („meist vorne und trotzdem verloren“) oder
+  sonst im Gegnerteam
+- Fortschritt, „Wann du gewinnst“: neue Aufteilung nach Uhrzeit (jede Stunde mit Spielen), zeigt einzelne schwache Stunden
+- Solo/Duo-Queue nach 2 oder mehr Niederlagen am Stück (auch aus Flex oder Normal): einmal je Serie ein Hinweis mit
+  deiner eigenen Siegquote direkt nach 2 Niederlagen. Farmy hält die Queue nicht an
+- Letztes Spiel, Rückblick: Build-Check – wo Schlüsselrune, Runenbäume, Summoner und Start-Items vom meistgespielten
+  Build auf lolalytics (Champion und Lane) abweichen. Gilt für Spiele ab jetzt
 
 ## 2.0.0 – 2026-11-05
 

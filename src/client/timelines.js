@@ -103,6 +103,15 @@ function digest(details, tl, puuid, oppChampKey, roles = null) {
     oppChamp: opp ? opp.championId : null,
     // gegnerischer Jungler = Gegner mit Smite (seit v6, für „Wer dich früh tötet“)
     ejChamp: (details.participants.find((p) => p.teamId !== me.teamId && hasSmite(p)) || {}).championId || null,
+    // dein Build (seit 26.11., nur neu geladene Spiele): Runen, Summoner, Start-Items (gekauft in der ersten
+    // Minute), für den Build-Check im Rückblick
+    build: {
+      champ: me.championId,
+      perks: [0, 1, 2, 3, 4, 5].map((i) => ms[`perk${i}`]).filter(Boolean),
+      primary: ms.perkPrimaryStyle || null, sub: ms.perkSubStyle || null,
+      spells: [me.spell1Id, me.spell2Id].filter(Boolean),
+      start: events.filter((e) => e.type === 'ITEM_PURCHASED' && e.participantId === pid && e.timestamp < 60000).map((e) => e.itemId),
+    },
     enemies: details.participants.filter((p) => p.teamId !== me.teamId).map((p) => p.championId),
   };
 }

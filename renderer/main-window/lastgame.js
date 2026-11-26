@@ -116,6 +116,13 @@ async function reviewHtml(eog, ls, won) {
     const oc = await window.lol.champion(tl.oppChamp).catch(() => null);
     lines.push(['', t('Lane-Duell'), duelText(tl, oc)]);
   }
+  // Build-Check: wo dein Build vom meistgespielten auf lolalytics abweicht (nur Vergleich, keine Wertung)
+  const bc = r.buildCheck;
+  if (bc && !bc.length) lines.push(['good', t('Build-Check'), t('Runen, Summoner und Start wie der meistgespielte Build auf lolalytics.')]);
+  if (bc && bc.length) {
+    const WHAT = { keystone: 'Schlüsselrune', primary: 'Hauptbaum', sub: 'Nebenbaum', spells: 'Summoner', start: 'Start' };
+    lines.push(['', t('Build-Check'), bc.map((x) => t('{what}: du {mine}, meistgespielt {ref}', { what: t(WHAT[x.what]), mine: x.mine, ref: x.ref })).join(' · ')]);
+  }
   if (log && log.ult && log.ult.readySec >= 60) {
     lines.push(['', t('Ulti'), t('{t} bereit und ungenutzt (längste Phase {l})', { t: dur(log.ult.readySec), l: dur(log.ult.longestSec) })]);
   }

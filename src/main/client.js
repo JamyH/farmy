@@ -27,6 +27,7 @@ async function poll() {
     setTimeout(() => toMainWindow('eog:ready'), 5000);
     setTimeout(importHistory, 10000);
   }
+  if (phase === 'Matchmaking' && last !== 'Matchmaking') warnRankedAfterLosses().catch(() => {});
   if (phase === 'ChampSelect') await champselect.update();
   else champselect.leave();
   state.phase = phase;
@@ -82,6 +83,20 @@ async function updateSession() {
     streakWarned = streak;
     balloon(t('{n} Niederlagen am Stück', { n: streak }), t('Kurz durchatmen? Eine Pause hilft oft mehr als das nächste Spiel.'));
   }
+}
+
+// Solo/Duo-Queue nach 2+ Niederlagen am Stück (egal in welchem Modus, z. B. nach einem verlorenen Flex-Abend): einmal
+// je Serie ein Hinweis mit deiner eigenen Siegquote direkt nach 2 Niederlagen. Farmy hält die Queue nicht an
+const SOLO_QUEUE = 420;
+let rankedWarned = 0; // Startzeit des letzten Spiels, zu dessen Serie schon gewarnt wurde
+async function warnRankedAfterLosses() {
+  const s = history.lossStreak();
+  if (s.streak < 2 || rankedWarned === s.lastAt) return;
+  const session = await lcu.gameflowSession(config.leaguePath);
+  if (((session && session.gameData && session.gameData.queue) || {}).id !== SOLO_QUEUE) return;
+  rankedWarned = s.lastAt;
+  const rate = s.after.games >= 5 ? t('Direkt nach 2 Niederlagen gewinnst du {p} % ({n} Spiele).', { p: Math.round((s.after.wins / s.after.games) * 100), n: s.after.games }) : '';
+  balloon(t('Solo/Duo nach {n} Niederlagen', { n: s.streak }), `${rate} ${t('Vielleicht erst eine Pause oder ein Normal-Spiel?')}`.trim());
 }
 
 // Deutsche Augment-Namen aus dem Client, einmal pro App-Start (neue Augments kommen mit Patches)

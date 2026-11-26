@@ -220,6 +220,9 @@ function winBlocks(games) {
     [t('Spiel am Tag'), [['1.', (g) => nth.get(g) === 1], ['2.', (g) => nth.get(g) === 2], ['3.', (g) => nth.get(g) === 3], ['4+', (g) => nth.get(g) >= 4]]],
     [t('Tageszeit'), [[t('Morgens'), (g) => hour(g) >= 6 && hour(g) < 12], [t('Nachmittags'), (g) => hour(g) >= 12 && hour(g) < 18],
       [t('Abends'), (g) => hour(g) >= 18], [t('Nachts'), (g) => hour(g) < 6]]],
+    // genaue Uhrzeit (Spielstart), nur Stunden mit Spielen, ab 6 Uhr morgens sortiert: zeigt einzelne schwache Stunden
+    [t('Uhrzeit'), [...new Set(games.map(hour))].sort((a, b) => ((a + 18) % 24) - ((b + 18) % 24))
+      .map((h) => [t('{h} Uhr', { h }), (g) => hour(g) === h])],
     [t('Spiellänge'), [['< 25 min', (g) => g.dur < 1500], ['25–35 min', (g) => g.dur >= 1500 && g.dur < 2100], ['> 35 min', (g) => g.dur >= 2100]]],
   ];
   return blocks.map(([title, rows]) => `<div class="card wins"><h2>${title}</h2>${rows.map(([label, test]) => {

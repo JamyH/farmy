@@ -3,6 +3,7 @@
 const { ipcMain } = require('electron');
 const { config, saveConfig } = require('./config');
 const notes = require('./notes');
+const buildcheck = require('./buildcheck');
 const lcu = require('../client/lcu');
 const history = require('../client/history');
 const archive = require('../client/archive');
@@ -92,7 +93,8 @@ function register({ toMainWindow }) {
   // „Letztes Spiel“: Farmys Protokoll zu diesem Spiel, dazu die Historie als Vergleich
   ipcMain.handle('main-window:review', async (_e, gameId) => {
     await fillTimelines([gameId]).catch(() => {});
-    return { log: gamelog.get(gameId), tl: timelines.get(gameId), games: history.all(), goal: config.goal || null };
+    const tl = timelines.get(gameId);
+    return { log: gamelog.get(gameId), tl, games: history.all(), goal: config.goal || null, buildCheck: await buildcheck.check(tl).catch(() => null) };
   });
   // Session-Ziel (wie eine Challenge): eins zur Zeit, Ergebnis je Spiel für Serie und Quote
   ipcMain.handle('goal:set', (_e, goal) => {
