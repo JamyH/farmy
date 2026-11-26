@@ -163,6 +163,11 @@ function renderGame(g) {
       (T.options.length ? `<div class="opts">${T.options.map((o) => `<span title="${esc(o.name)}"><img src="${esc(o.icon)}" alt="">${esc(o.name)}<i>${esc(t(WHY[o.why]))}</i></span>`).join('')}</div>` : ''));
   }
 
+  // Hinweise aus deinen eigenen Spielen (src/game/tips.js): Serie am selben Gegner, Kontrollwarde, Jungler-Phase
+  const tips = g.tips || [];
+  $('tips').hidden = !tips.length;
+  setHtml($('tips'), tips.map((x) => `<div class="tip ${esc(x.kind)}">${esc(x.text)}</div>`).join(''));
+
   // Session-Ziel (im Hauptfenster unter „Fortschritt“ gesetzt): Stand gegen das Ziel, „✓“/„✗“ steht im Text
   $('goal').hidden = !g.goal;
   if (g.goal) {

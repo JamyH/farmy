@@ -47,6 +47,13 @@ function deathMapCard(games, map) {
   }).join('');
   let zones = '';
   if (map === 11) {
+    // kaum Kontrollwarden: feste Gewohnheit statt Skill-Wert (bei jedem Recall eine)
+    const cwl = recent.filter((g) => g.cw != null);
+    const cwAvg = cwl.length >= 3 ? mean(cwl.map((g) => g.cw)) : null;
+    if (cwAvg != null && cwAvg < 1.5) {
+      const target = Math.min(3, Math.floor(cwAvg) + 1);
+      tasks.push({ kind: 'cw', key: '', target, text: t('Mindestens {n} Kontrollwarden je Spiel kaufen', { n: target }) });
+    }
     const count = {};
     for (const d of pts) {
       const z = zoneOf(d.x, d.y, d.team);
@@ -86,6 +93,72 @@ function killersCard(games) {
     `<div class="rv-row"><span class="rv-label">${t('Solo-Kills')}</span><span><b>${soloK}</b> · ${t('Solo-Tode')} <b>${soloD}</b>` +
     `${soloK + soloD ? ` · <span class="${soloK >= soloD ? 'win' : 'loss'}">${t('{p} % deiner 1-gegen-1 gewonnen', { p: Math.round((soloK / (soloK + soloD)) * 100) })}</span>` : ''}</span></div>` +
     `<p class="hint">${t('Viele Tode gegen 2+ Gegner heißt meist: falsch stehen, wenn der Gegner-Jungler oder Roamer kommt. Viele Solo-Tode: Duelle überschätzt.')}</p></div></div></div>`;
+}
+
+// 3b. Frühe Tode (Kluft, bis Minute 15): wer dich tötet – Lane-Gegner, gegnerischer Jungler (Gegner mit Smite) oder
+// andere –, Tode auf Level 1–2 (vor 2:30), wann der Jungler dich erwischt und Serien gegen denselben Gegner
+const EARLY = 900;
+const JG_BUCKETS = [[0, 180, '0–3'], [180, 360, '3–6'], [360, 540, '6–9'], [540, 720, '9–12'], [720, 900, '12–15']];
+const KILLER_LABELS = { lane: 'Lane-Gegner', jungle: 'Gegnerischer Jungler', other: 'Andere (Roams, Mid …)', tower: 'Turm/Vasallen' };
+const killerKind = (d, tl) => (!d.killer ? 'tower' : tl.oppChamp && d.killer === tl.oppChamp ? 'lane'
+  : tl.ejChamp && d.killer === tl.ejChamp ? 'jungle' : 'other');
+const barRow = (label, v, max, bad, small) => `<div class="wrow phase"><span>${label}</span>` +
+  `<svg class="wtrack" viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><rect width="100" height="8" rx="2" class="wbg"></rect>` +
+  `<rect width="${Math.round((v / Math.max(max, 1)) * 100)}" height="8" rx="2" class="${bad ? 'wbad' : 'wfill'}"></rect></svg><small>${small}</small></div>`;
+function earlyDeathCard(games) {
+  const list = games.map(tlOf).filter((tl) => tl && tl.lane && tl.lane !== 'jungle');
+  const deaths = list.flatMap((tl) => tl.deathsAt.filter((d) => d.t < EARLY).map((d) => ({ ...d, kind: killerKind(d, tl) })));
+  if (deaths.length < 5) return `<div class="card"><p class="hint">${t('Noch zu wenige frühe Tode auf einer Lane ({n} von 5).', { n: deaths.length })}</p></div>`;
+  const count = { lane: 0, jungle: 0, other: 0, tower: 0 };
+  for (const d of deaths) count[d.kind]++;
+  const pct = (x) => Math.round((x / deaths.length) * 100);
+  const max = Math.max(...Object.values(count));
+  const top = Object.entries(count).sort((a, b) => b[1] - a[1])[0];
+  const rows = Object.entries(count).filter(([, v]) => v)
+    .map(([k, v]) => barRow(t(KILLER_LABELS[k]), v, max, k === top[0], `<b>${pct(v)} %</b> · ${v}`)).join('');
+  // Jungler-Tode nach Spielminute: wann die Ganks kommen
+  const jg = deaths.filter((d) => d.kind === 'jungle');
+  let gank = `<p class="hint">${t('Noch zu wenige Tode durch den gegnerischen Jungler für eine Zeitverteilung.')}</p>`;
+  if (jg.length >= 3) {
+    const b = JG_BUCKETS.map(([lo, hi, label]) => ({ label, n: jg.filter((d) => d.t >= lo && d.t < hi).length }));
+    const worst = b.reduce((a, x) => (x.n > a.n ? x : a));
+    gank = `<h2>${t('Wann dich der Jungler erwischt')}</h2>` +
+      b.map((x) => barRow(t('Minute {m}', { m: x.label }), x.n, worst.n, x === worst, x.n)).join('') +
+      `<p class="hint">${t('Die meisten Jungler-Tode fallen in Minute {m}. Dann den Fluss-Busch warden und ohne Sicht auf den Jungler nicht weit vorpushen.', { m: worst.label })}</p>`;
+  }
+  // Level 1–2 und Serien: zweimal oder öfter früh am selben Gegner gestorben
+  const lvl1 = deaths.filter((d) => d.t < 150).length;
+  const streaky = list.filter((tl) => {
+    const by = {};
+    for (const d of tl.deathsAt.filter((x) => x.t < EARLY && x.killer)) by[d.killer] = (by[d.killer] || 0) + 1;
+    return Object.values(by).some((v) => v >= 2);
+  }).length;
+  const verdict = top[0] === 'lane' ? t('{p} % deiner frühen Tode gehen auf deinen Lane-Gegner: Trades und Wellenstand sind die größte Baustelle.', { p: pct(top[1]) })
+    : top[0] === 'jungle' ? t('{p} % deiner frühen Tode gehen auf den gegnerischen Jungler: Sicht im Fluss und Wellenstand prüfen.', { p: pct(top[1]) }) : '';
+  return `<div class="card early-deaths">${verdict ? `<p class="deaths-head">${verdict}</p>` : ''}<div class="ecols"><div><h2>${t('Wer dich bis Minute 15 tötet')}</h2>${rows}` +
+    `<div class="rv-row"><span class="rv-label">${t('vor 2:30 (Level 1–2)')}</span><span><b class="${lvl1 ? 'loss' : 'win'}">${lvl1}</b> ${t('Tode in {n} Spielen', { n: list.length })}</span></div>` +
+    `<div class="rv-row"><span class="rv-label">${t('2+ Mal am selben Gegner')}</span><span><b class="${streaky * 3 > list.length ? 'loss' : ''}">${t('in {a} von {b} Spielen', { a: streaky, b: list.length })}</b></span></div>` +
+    `</div><div>${gank}</div></div>` +
+    `<p class="hint">${t('{n} Tode bis Minute 15 auf einer Lane. Jungler = Gegner mit Smite, Lane-Gegner wie im Lane-Duell.', { n: deaths.length })}</p></div>`;
+}
+
+// 3c. Sicht (Kluft): gekaufte Kontrollwarden, gesetzte und zerstörte Wards je Spiel, Siege gegen Niederlagen
+function sightCard(games) {
+  const list = games.filter((g) => g.cw != null);
+  if (list.length < 3) return `<div class="card"><p class="hint">${t('Kontrollwarden und zerstörte Wards merkt sich Farmy seit dieser Version ({n} von 3 Spielen). Ältere Spiele ergänzt es aus dem Client, soweit er sie noch kennt.', { n: list.length })}</p></div>`;
+  const avg = (l, k) => mean(l.map((g) => g[k] || 0));
+  const none = (k) => Math.round((list.filter((g) => !g[k]).length / list.length) * 100);
+  const [cw, wk, wp] = [avg(list, 'cw'), avg(list, 'wk'), avg(list, 'wp')];
+  const win = list.filter((g) => g.win), loss = list.filter((g) => !g.win);
+  const row = (label, v, extra, bad) => `<div class="rv-row"><span class="rv-label">${label}</span><span><b class="${bad ? 'loss' : 'win'}">${dec(v, 1)}</b> ${extra}</span></div>`;
+  const verdict = cw < 1 ? t('Du kaufst kaum Kontrollwarden (Ø {v} je Spiel). Eine bei jedem Recall ist die einfachste Sicht-Gewohnheit.', { v: dec(cw, 1) }) : '';
+  const vs = win.length >= 2 && loss.length >= 2
+    ? `<p class="hint">${t('Kontrollwarden in Siegen Ø {a}, in Niederlagen Ø {b}.', { a: dec(avg(win, 'cw'), 1), b: dec(avg(loss, 'cw'), 1) })}</p>` : '';
+  return `<div class="card sight">${verdict ? `<p class="deaths-head">${verdict}</p>` : ''}` +
+    row(t('Kontrollwarden gekauft'), cw, t('je Spiel · in {p} % der Spiele keine', { p: none('cw') }), cw < 1) +
+    row(t('Gegnerische Wards zerstört'), wk, t('je Spiel · in {p} % der Spiele keine', { p: none('wk') }), wk < 1.5) +
+    row(t('Wards gesetzt'), wp, t('je Spiel'), false) +
+    `${vs}<p class="hint">${t('Aus {n} Spielen. Gegnerische Wards findest du am leichtesten mit der roten Linse (Oracle Lens), sobald die Lane-Phase vorbei ist.', { n: list.length })}</p></div>`;
 }
 
 // 4. Anteile im Team: dein Anteil an Schaden, Gold und Toden deines Teams
@@ -226,6 +299,8 @@ const PLAN_KINDS = {
     if (!tl) return null;
     return tl.deathsAt.filter((d) => zoneOf(d.x, d.y, tl.team) === task.key).length <= task.target;
   },
+  // mindestens target gekaufte Kontrollwarden
+  cw: (task, g) => (g.cw == null ? null : g.cw >= task.target),
   // höchstens target Tode gegen 2+ Gegner
   gank: (task, g) => {
     const tl = tlOf(g);

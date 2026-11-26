@@ -10,8 +10,9 @@ const fs = require('fs');
 const path = require('path');
 
 let file = null;
-// gameId -> { v: 3, me, team, lane, dur, deaths: [s], deathsAt, kills, teamKills, share, goldDiff, lvl6, oppLvl6, objectives,
-// at10, at15, opp10, opp15, oppChamp, enemies: [Champion-Keys] } oder { failed: true }. Ältere Versionen werden neu geladen
+// gameId -> { v: 6, me, team, lane, dur, deaths: [s], deathsAt, kills, teamKills, share, goldDiff, lvl6, oppLvl6, objectives,
+// at10, at15, opp10, opp15, oppChamp, ejChamp, enemies: [Champion-Keys] } oder { failed: true }. Ältere Versionen werden neu
+// geladen; kennt der Client das Spiel nicht mehr, bleibt die ältere Fassung (ejChamp dann null)
 let data = {};
 
 function init(dir) {
@@ -94,12 +95,14 @@ function digest(details, tl, puuid, oppChampKey, roles = null) {
     }));
   const jungle = jungleDigest(details, tl, me, events, byId, roles);
   return {
-    v: 5, me: pid, team: me.teamId, lane, dur: details.gameDuration || 0, deaths, deathsAt, kills: myKills, jungle,
+    v: 6, me: pid, team: me.teamId, lane, dur: details.gameDuration || 0, deaths, deathsAt, kills: myKills, jungle,
     teamKills: sum('kills'), share: { dmg: share('totalDamageDealtToChampions'), gold: share('goldEarned'), deaths: share('deaths') },
     goldDiff, lvl6: lvl6(pid), oppLvl6: opp ? lvl6(opp.participantId) : null, objectives,
     at10: frameAt(tl, 10, pid), at15: frameAt(tl, 15, pid),
     opp10: opp ? frameAt(tl, 10, opp.participantId) : null, opp15: opp ? frameAt(tl, 15, opp.participantId) : null,
     oppChamp: opp ? opp.championId : null,
+    // gegnerischer Jungler = Gegner mit Smite (seit v6, für „Wer dich früh tötet“)
+    ejChamp: (details.participants.find((p) => p.teamId !== me.teamId && hasSmite(p)) || {}).championId || null,
     enemies: details.participants.filter((p) => p.teamId !== me.teamId).map((p) => p.championId),
   };
 }
@@ -219,15 +222,17 @@ function fill(gameIds, { fetch, puuid, opp = () => null, roles = () => null, max
   running = (async () => {
     let n = 0;
     for (const id of gameIds) {
-      // v5 (28.10.): Jungle-Auswertung, Konter-Jungling geschätzt – ältere Einträge einmal neu
-      if ((data[id] && (data[id].failed || data[id].v >= 5)) || n >= max) continue;
+      // v5 (28.10.): Jungle-Auswertung, Konter-Jungling geschätzt; v6 (26.11.): gegnerischer Jungler – ältere Einträge
+      // einmal neu (ejChamp: null heißt „schon versucht, Client kennt das Spiel nicht mehr“)
+      const old = data[id];
+      if ((old && (old.failed || old.v >= 6 || 'ejChamp' in old)) || n >= max) continue;
       n++;
       try {
         const [details, tl] = await Promise.all([fetch(`/lol-match-history/v1/games/${id}`), fetch(`/lol-match-history/v1/game-timelines/${id}`)]);
         data[id] = digest(details, tl, puuid, opp(id), roles(id));
       } catch (e) {
         // Client weg oder Spiel zu alt: beim nächsten Mal erneut versuchen, außer der Client kennt es nicht mehr
-        if (/404/.test(e.message)) data[id] = { failed: true };
+        if (/404/.test(e.message)) data[id] = old && !old.failed && old.v >= 3 ? { ...old, ejChamp: null } : { failed: true };
       }
     }
     if (n) save();

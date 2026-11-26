@@ -240,6 +240,7 @@ function drawProgress() {
     sec('Wann du stirbst', deathCard(games)) +
     sec('Wo du stirbst', deathMapCard(games, progMap)) +
     sec('Wer dich tötet', killersCard(games)) +
+    (progMap === 11 ? sec('Frühe Tode', earlyDeathCard(games)) + sec('Sicht', sightCard(games)) : '') +
     (progMap === 11 ? sec('Lane-Duell', duelCard(games)) + sec('Level 6', lvl6Card(games)) : '') +
     sec('Anteile im Team', shareCard(games)) +
     sec('Vorsprung und Comeback', leadCard(games, progMap)) +

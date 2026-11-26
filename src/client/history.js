@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 let file = null;
-// gameId -> { champ (Key), map, items, win, at, k, d, a, cs, dur (s), queue, lane, vis, dmg, gold, taken, obj, turrets }
+// gameId -> { champ (Key), map, items, win, at, k, d, a, cs, dur (s), queue, lane, vis, dmg, gold, taken, obj, turrets,
+//   cw, wp, wk } – cw/wp/wk (Control Wards gekauft, Wards gesetzt, gegnerische Wards zerstört) seit 26.11.
 // k…lane seit 27.10. (CS-Ziel, beste Champs, Session), vis…taken seit 27.10. abends (Reiter „Fortschritt“);
 // ältere Einträge werden beim nächsten Import ergänzt, soweit der Client sie noch liefert (letzte 20)
 let games = {};
@@ -26,7 +27,7 @@ function add(matchHistory) {
     // nur echte Spiele: Practice Tool und Custom Games verfälschen die Statistik
     if (!p || g.gameType !== 'MATCHED_GAME') continue;
     const old = games[g.gameId];
-    if (old && old.obj != null && !needsArena(old)) continue;
+    if (old && old.obj != null && 'cw' in old && !needsArena(old)) continue;
     games[g.gameId] = entry(g, p);
     added++;
   }
@@ -67,7 +68,7 @@ const needsArena = (g) => g.map === 30 && g.place == null;
 async function backfill(fetch, puuid) {
   let n = 0;
   for (const [id, old] of Object.entries(games)) {
-    if (old.cs != null && old.obj != null && !needsArena(old)) continue;
+    if (old.cs != null && old.obj != null && 'cw' in old && !needsArena(old)) continue;
     try {
       const d = await fetch(id);
       const ident = (d.participantIdentities || []).find((x) => x.player && x.player.puuid === puuid);

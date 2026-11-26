@@ -10,6 +10,7 @@ const live = require('../game/live');
 const gamelog = require('../game/gamelog');
 const clears = require('../game/clears');
 const threat = require('../game/threat');
+const tips = require('../game/tips');
 const clock = require('../screen/clock');
 const ddragon = require('../data/ddragon');
 const lolalytics = require('../data/lolalytics');
@@ -79,6 +80,7 @@ function gameStarted(data, summary, apiTime) {
   clock.reset();
   review.start();
   threat.reset();
+  tips.reset();
   if (data.gameData.gameMode !== 'PRACTICETOOL') {
     gamelog.start({ champ: Number(ddragon.championKey(summary.championId)), map: summary.map, mode: data.gameData.gameMode,
       at: Date.now() - apiTime * 1000 });
@@ -133,6 +135,8 @@ function addPanelData(summary, data, apiTime) {
   summary.augments = screenState.augments || null;
   summary.jungleRoute = jungleRouteFor(summary);
   summary.quest = rift && moduleOn('quest') ? screenState.quest : null;
+  // Hinweise aus deinen eigenen Spielen (Serie am selben Gegner, Kontrollwarde, Jungler-Phase)
+  summary.tips = rift && moduleOn('tips') && data.gameData.gameMode !== 'PRACTICETOOL' ? tips.update(summary, data) : null;
   if (rift) addRiftExtras(summary, data);
   // Gegner-Team (Kluft und ARAM): Schadensart, CC, Heilung und Item-Optionen dagegen
   summary.threat = (rift || summary.map === 12) && moduleOn('threat') ? threat.assess(data, config.leaguePath) : null;

@@ -9,7 +9,7 @@
 | `preload.js` | `window.lol`: alles, was die Fenster vom Hauptprozess bekommen |
 | `src/app/` | App selbst: `config.js` (config.json, Overlay-Vorgaben, `moduleOn`), `main-window-data.js` (IPC fürs Hauptfenster ohne Spielzustand), Setup, Updater, Notizen |
 | `src/client/` | League-Client (LCU): `lcu.js`, Historie, Archiv, Spielverläufe, Team-Scout, Lobby-Skill |
-| `src/game/` | Laufendes Spiel (Live-API, Port 2999): Panel-Werte, Gegner-Team, Spielprotokoll, Clear-Zeit, Augments |
+| `src/game/` | Laufendes Spiel (Live-API, Port 2999): Panel-Werte, Gegner-Team, Spielprotokoll, Clear-Zeit, Augments, Hinweise aus eigenen Spielen (`tips.js`) |
 | `src/screen/` | Bildschirm lesen: Regionen, GDI-Ausschnitte, OCR, Ziffern, Minimap, Spielfenster, Tasten, Spieluhr-Absicherung (`clock.js`) |
 | `src/data/` | Externe Daten: Data Dragon, lolalytics, Meraki, arammayhem, Jungle-Routen, Level-1–3-Duell; `sources.js`: welche Quelle erlaubt ist (an/aus) und ihre Lizenz |
 | `renderer/overlay.html`, `overlay.css` + `renderer/overlay/` | Overlay im Spiel: `core` (Helfer), `overlays` (Jungle-Route, Augments, Scoreboard), `panel`, `mouse`, `settings` (⚙) |

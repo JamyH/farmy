@@ -21,6 +21,7 @@ const MODULES = [
     ['threat', 'Gegner-Team und Items dagegen'],
     ['quest', 'Rollen-Quest'],
     ['goal', 'Session-Ziel'],
+    ['tips', 'Hinweise aus deinen Spielen'],
   ]],
   ['Weitere Overlays', [
     ['scoreboard', 'Tab: Itemwert je Spieler'],

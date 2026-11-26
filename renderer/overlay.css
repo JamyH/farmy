@@ -383,6 +383,12 @@ small { margin-left: 4px; font-size: 11px; }
 #goal b.bad { color: var(--bad); }
 #goal b.early { color: var(--text-2); }
 
+/* Hinweise aus deinen Spielen: schmale Zeilen mit Farbstreifen links */
+#tips[hidden] { display: none !important; }
+.tips { display: grid; gap: 4px; margin: -2px 0 8px; }
+.tip { font-size: 11px; line-height: 1.3; padding: 3px 6px; border-left: 2px solid var(--accent); background: var(--track); color: var(--text); }
+.tip.streak { border-left-color: var(--bad); }
+
 /* Gegner-Team: Schadensart, CC, Heilung, Item-Optionen */
 #threat[hidden] { display: none !important; }
 .threat { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }

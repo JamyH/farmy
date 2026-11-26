@@ -8,6 +8,18 @@ Geändert
 
 Neu
 - Code signing policy auf der Website, Vorbereitung für die kostenlose Signierung über die SignPath Foundation
+- Fortschritt (Kluft), neue Karte „Sicht“: gekaufte Kontrollwarden, zerstörte gegnerische Wards und gesetzte Wards je
+  Spiel, wie oft gar keine, Kontrollwarden in Siegen gegen Niederlagen. Farmy merkt sich die Werte ab jetzt und ergänzt
+  ältere Spiele aus dem Client, soweit er sie noch kennt. Der Trainingsplan stellt bei wenigen Kontrollwarden die
+  Aufgabe „Mindestens n Kontrollwarden je Spiel kaufen“ und wertet sie selbst aus
+- Fortschritt (Kluft), neue Karte „Frühe Tode“: wer dich bis Minute 15 tötet (Lane-Gegner, gegnerischer Jungler,
+  andere, Turm), Tode vor 2:30, in wie vielen Spielen du zweimal am selben Gegner gestorben bist und in welcher Minute
+  dich der Jungler meist erwischt. Dafür merken sich die Spielverläufe jetzt den gegnerischen Jungler (Gegner mit
+  Smite); bekannte Spiele werden einmal neu aus dem Client geladen
+- Panel: Hinweise aus deinen eigenen Spielen (Kluft, im ⚙ abschaltbar): „2× an Darius gestorben – bis zum ersten Item
+  sicher farmen?“ nach dem zweiten frühen Tod am selben Gegner, „Kontrollwarde mitnehmen“ am Shop (tot oder gerade
+  etwas gekauft) ohne Kontrollwarde im Inventar, und vor Minute 9, wenn deine Jungler-Tode meist in Minute 9–15 fallen,
+  eine Erinnerung an Sicht im Fluss. Grundlage sind nur deine eigenen Tode, dein Inventar und deine Statistik
 
 ## 2.0.0 – 2026-11-05
 
