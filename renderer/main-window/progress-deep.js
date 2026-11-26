@@ -1,5 +1,6 @@
-// --- Fortschritt Runde 3: Todes-Karte, wer dich tötet, Anteile im Team, Vorsprung/Comeback, Lernkurve, Ermüdung,
-// Level 6, Solo-Duelle, Objectives, Trainingsplan, Monatsvergleich. Alles aus deinen Spielverläufen (Client) ---
+// --- Fortschritt Runde 3: Todes-Karte, wer dich tötet, frühe Tode (bis Minute 15), Sicht (Kontrollwarden, zerstörte
+// Wards), Anteile im Team, Vorsprung/Comeback, Lernkurve, Ermüdung, Level 6, Solo-Duelle, Objectives, Trainingsplan,
+// Monatsvergleich. Fast alles aus deinen Spielverläufen (Client) ---
 
 // Kartenzonen auf der Kluft (Koordinaten 0–~14800, blaue Basis unten links). Grob: Basen, Lanes an den Rändern und
 // der Diagonale, Fluss entlang der Gegendiagonale, Rest Dschungel (eigener oder gegnerischer je nach Seite)

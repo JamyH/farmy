@@ -63,6 +63,11 @@ stehen in `VIEWS` (app.js) und als Umschalter im Seitenkopf. Neue Seite: eigene 
 `<section>` und den Knopf in der passenden Gruppe anlegen, in `PAGES` Titel und Untertitel. Keine tieferen Ebenen.
 `quick.js` ist die Schnellsuche (Strg+K), `nav.css` das Aussehen von Suchknopf, Unterseiten-Leiste und Schnellsuche.
 
+Fortschritt: `progress.js` baut die Seite (Laden, Modus, Skills, Ziele, Woche), die Karten liegen in `progress-cards.js`
+(Grundkarten: Skill-Kacheln, Wann du gewinnst, Champion-Pool, Wann du stirbst, Lane-Duell), `progress-profile.js`
+(Skill-Profil, Gegner, Nach Niederlagen, Champion-Profil, Arena, Rekorde), `progress-deep.js` (aus den Spielverläufen,
+Trainingsplan) und `jungle-review.js` (nur Jungle). „Dein Plan“ in „Build & Runen“ ist `plan.js`, die Notizen selbst `notes.js`.
+
 ## Regeln
 
 - Dateien mit CRLF (git `core.autocrlf=true`); Kommentare und Texte auf Deutsch, sichtbare Texte über `t('…')` und
